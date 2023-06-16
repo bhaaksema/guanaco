@@ -24,14 +24,8 @@ function Line({ node, index, setTree }) {
     // set validity to true
     target.setCustomValidity("");
 
-    // notify the user that A1 requires manual validation
-    const base = target.value;
-    if (base === "A1") {
-      // set validity to false
-      target.setCustomValidity("Manual validation of A1 is required.");
-    }
-
     // find the selected rule
+    const base = target.value;
     const rule = rulesList.concat(shortcuts).find((rule) => rule.name === base);
 
     // update the tree
@@ -41,7 +35,7 @@ function Line({ node, index, setTree }) {
       const validated = premises.length === 1 || premises.every(noHoles);
       setTree((tree) => tree.update(node, base, validated, children));
     } else {
-      setTree((tree) => tree.update(node, base, true, []));
+      setTree((tree) => tree.update(node, base, base !== "A1", []));
     }
   }
 
