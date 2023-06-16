@@ -98,7 +98,7 @@ function initPremise(premise, agents, holes) {
   }
 }
 
-function noHoles(f) {
+export function noHoles(f) {
   switch (f.type) {
     case "hole":
       return false;

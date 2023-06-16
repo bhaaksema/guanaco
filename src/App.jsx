@@ -12,7 +12,7 @@ export default function App() {
       <Card className="mt-5">
         <Card.Header>
           <Card.Title>
-            Guanaco - Syntactic Proof Guide for Epistemic Logic
+            Guanaco - A Syntactic Proof Guide for Epistemic Logic
           </Card.Title>
           <Card.Text>
             This tool helps people to determine which rules can be applied and

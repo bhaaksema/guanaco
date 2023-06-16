@@ -39,7 +39,7 @@ function binary(top, formula) {
 
 function knowledge(formula) {
   const subformula = pretty(formula.formula, false);
-  return `${un[formula.type]}_${formula.agent} ${subformula}`;
+  return `${un[formula.type]}${formula.agent} ${subformula}`;
 }
 
 export default pretty;

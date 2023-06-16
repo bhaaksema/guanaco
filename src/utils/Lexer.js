@@ -20,14 +20,12 @@ let tokensByPriority = [
   // Parentheses
   createToken({ name: "LPar", pattern: /\(/ }),
   createToken({ name: "RPar", pattern: /\)/ }),
-  createToken({ name: "LA", pattern: /{/ }),
-  createToken({ name: "RA", pattern: /}/ }),
   createToken({ name: "LSay", pattern: /\[/ }),
   createToken({ name: "RSay", pattern: /]/ }),
 
   // Variables and constants
-  createToken({ name: "Proposition", pattern: /p(0|[1-9]\d*)?/ }),
-  createToken({ name: "Formula", pattern: /f(0|[1-9]\d*)?/ }),
+  createToken({ name: "Proposition", pattern: /(p|q|r|s)(0|[1-9]\d*)?/ }),
+  createToken({ name: "Formula", pattern: /(f|g|h)(0|[1-9]\d*)?/ }),
   createToken({ name: "Agent", pattern: /[1-9]\d*|a(0|[1-9]\d*)?/ }),
 ];
 

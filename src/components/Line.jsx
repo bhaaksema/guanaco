@@ -32,16 +32,10 @@ function Line({ node, index, setTree }) {
       const premises = check(node.value, rule, false);
       const children = premises.map((premise) => new Tree(premise));
       setTree((tree) =>
-        tree.update(
-          node,
-          base,
-          premises.length === 1,
-          children,
-          premises.length > 1
-        )
+        tree.update(node, base, premises.length === 1, children)
       );
     } else {
-      setTree((tree) => tree.update(node, base, true, [], false));
+      setTree((tree) => tree.update(node, base, true, []));
     }
   }
 

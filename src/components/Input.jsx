@@ -28,13 +28,7 @@ function Input({ node, setTree }) {
       target.setCustomValidity("invalid formula");
     }
     setTree((tree) =>
-      tree.update(
-        node,
-        node.base,
-        target.value !== "",
-        node.children,
-        node.input
-      )
+      tree.update(node, node.base, target.value !== "", node.children)
     );
 
     return result;
@@ -47,7 +41,7 @@ function Input({ node, setTree }) {
         (child) => new Tree(fill(child.value, hole))
       );
     }
-    setTree((tree) => tree.update(node, node.base, true, node.children, !hole));
+    setTree((tree) => tree.update(node, node.base, true, node.children));
     event.preventDefault();
   }
 
