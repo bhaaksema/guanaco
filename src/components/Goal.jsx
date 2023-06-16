@@ -4,7 +4,6 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 import parse from "../utils/Parser";
-import Tree from "../utils/Tree";
 
 Goal.propTypes = {
   setTree: PropTypes.func.isRequired,
@@ -14,15 +13,21 @@ function Goal({ setTree }) {
   const [validated, setValidated] = useState(false);
 
   function handleTyping(target) {
-    try {
-      setTree(new Tree(parse(target.value)));
-      target.setCustomValidity("");
-    } catch (e) {
-      console.error(e);
-      setTree(new Tree({ type: "hole" }));
-      target.setCustomValidity("This formula is not well-formed");
-    }
+    // enable validation if the user has typed something
     setValidated(target.value !== "");
+
+    // update the tree
+    setTree((tree) => {
+      try {
+        // if the formula is well-formed, remove the error message
+        target.setCustomValidity("");
+        return tree.setValue(parse(target.value));
+      } catch (e) {
+        // if the formula is not well-formed, show the error message
+        target.setCustomValidity("This formula is not well-formed");
+        return tree.setValue({ type: "hole" });
+      }
+    });
   }
 
   return (
@@ -33,7 +38,6 @@ function Goal({ setTree }) {
           onChange={(e) => handleTyping(e.target)}
           autoFocus
         />
-
         <Form.Control.Feedback type="invalid">
           This formula is not well-formed
         </Form.Control.Feedback>

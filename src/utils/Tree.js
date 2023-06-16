@@ -1,12 +1,13 @@
-import equal from "fast-deep-equal";
+import { v4 } from 'uuid';
 
 import axiomsList from "../data/AxiomsS5EC";
 import rulesList from "../data/RulesS5EC";
 import shortcuts from "../data/Shortcuts";
 import { check, noHoles } from "../utils/Engine";
 
-class Tree {
+export class Tree {
   constructor(value, base = 0, validated = false, children = []) {
+    this.id = v4();
     this.value = value;
     this.base = base;
     this.baseList = axiomsList
@@ -18,7 +19,7 @@ class Tree {
       );
     this.validated = validated;
     this.children = children;
-    this.input = this.children.some((child) => !noHoles(child.value));
+    this.inputEnabled = this.children.some((child) => !noHoles(child.value));
   }
 
   toArray() {
@@ -27,19 +28,29 @@ class Tree {
     return arr;
   }
 
-  update(node, base, validated, children, input) {
-    if (equal(this, node)) {
+  update(node, base, validated, children) {
+    if (this.id === node.id) {
       this.base = base;
       this.validated = validated;
-      this.input = input;
       this.children = children;
     } else {
       this.children = this.children.map(
         (c) => c.update(node, base, validated, children)
       );
     }
-    return new Tree(this.value, this.base, this.validated, this.children);
+    const tree = new Tree(this.value, this.base, this.validated, this.children);
+    tree.id = this.id;
+    return tree;
+  }
+
+  setValue(value) {
+    const tree = new Tree(value);
+    tree.id = this.id;
+    return tree;
   }
 }
 
-export default Tree;
+export function nodeIndex(tree, node) {
+  const list = tree.toArray();
+  return list.findIndex((n) => n.id === node.id) + 1;
+}

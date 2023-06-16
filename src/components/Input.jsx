@@ -6,7 +6,7 @@ import Collapse from "react-bootstrap/Collapse";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-import Tree from "../utils/Tree";
+import { Tree } from "../utils/Tree";
 import { fill } from "../utils/Engine";
 import parse from "../utils/Parser";
 
@@ -37,8 +37,8 @@ function Input({ node, setTree }) {
   function handleSubmit(event) {
     const hole = handleTyping(input.current);
     if (hole) {
-      node.children = node.children.map(
-        (child) => new Tree(fill(child.value, hole))
+      node.children = node.children.map((child) =>
+        child.setValue(fill(child.value, hole))
       );
     }
     setTree((tree) => tree.update(node, node.base, true, node.children));
@@ -46,13 +46,18 @@ function Input({ node, setTree }) {
   }
 
   return (
-    <Collapse in={node.input} mountOnEnter unmountOnExit className="mb-3">
+    <Collapse
+      in={node.inputEnabled}
+      mountOnEnter
+      unmountOnExit
+      className="mt-1 m-3"
+    >
       <div>
         <Form noValidate validated={node.validated} onSubmit={handleSubmit}>
           <InputGroup>
-            <InputGroup.Text>?</InputGroup.Text>
+            <InputGroup.Text>? =</InputGroup.Text>
             <Form.Control
-              placeholder="enter ?"
+              placeholder="enter formula"
               onChange={(e) => handleTyping(e.target)}
               ref={input}
             />

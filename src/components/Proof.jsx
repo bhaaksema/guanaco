@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Tree from "../utils/Tree";
+import { Tree } from "../utils/Tree";
 import Line from "./Line";
 import Goal from "./Goal";
 
@@ -12,9 +12,7 @@ function Proof() {
       {tree &&
         tree
           .toArray()
-          .map((node, index) => (
-            <Line key={index} {...{ node, index, setTree }} />
-          ))}
+          .map((node) => <Line key={node.id} {...{ node, tree, setTree }} />)}
       <Goal {...{ setTree }} />
     </>
   );
