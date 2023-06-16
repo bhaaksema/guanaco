@@ -7,9 +7,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Navbar from "react-bootstrap/Navbar";
 
 import Input from "./Input";
-import rulesList from "../data/RulesK";
+import rulesList from "../data/RulesS5EC";
 import shortcuts from "../data/Shortcuts";
-import { check } from "../utils/Engine";
+import { check, noHoles } from "../utils/Engine";
 import pretty from "../utils/Pretty";
 import Tree from "../utils/Tree";
 
@@ -21,19 +21,25 @@ Line.propTypes = {
 
 function Line({ node, index, setTree }) {
   function handleSelect(target) {
+    // set validity to true
     target.setCustomValidity("");
 
-    // find the selected rule
+    // notify the user that A1 requires manual validation
     const base = target.value;
+    if (base === "A1") {
+      // set validity to false
+      target.setCustomValidity("Manual validation of A1 is required.");
+    }
+
+    // find the selected rule
     const rule = rulesList.concat(shortcuts).find((rule) => rule.name === base);
 
     // update the tree
     if (rule) {
       const premises = check(node.value, rule, false);
       const children = premises.map((premise) => new Tree(premise));
-      setTree((tree) =>
-        tree.update(node, base, premises.length === 1, children)
-      );
+      const validated = premises.length === 1 || premises.every(noHoles);
+      setTree((tree) => tree.update(node, base, validated, children));
     } else {
       setTree((tree) => tree.update(node, base, true, []));
     }
@@ -59,8 +65,6 @@ function Line({ node, index, setTree }) {
                 <option disabled value={0}>
                   Base
                 </option>
-
-                {/* Basis */}
                 {node.baseList.map((base) => (
                   <option key={base.name}>{base.name}</option>
                 ))}

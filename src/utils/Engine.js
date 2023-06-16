@@ -63,7 +63,7 @@ function checkFormula(formula, ref, agents, holes) {
         return checkFormula(formula.formula, ref.formula, agents, holes);
       }
     default:
-      throw new Error("Invalid reference type");
+      throw new Error("Invalid reference: " + ref);
   }
 }
 
@@ -94,29 +94,29 @@ function initPremise(premise, agents, holes) {
         formula: initPremise(premise.formula, agents, holes),
       };
     default:
-      throw new Error("Invalid premise type");
+      throw new Error("Invalid premise: " + premise);
   }
 }
 
-export function noHoles(f) {
-  switch (f.type) {
+export function noHoles(formula) {
+  switch (formula.type) {
     case "hole":
       return false;
     case "conjunction":
     case "disjunction":
     case "implication":
     case "equivalence":
-      return noHoles(f.left) && noHoles(f.right);
+      return noHoles(formula.left) && noHoles(formula.right);
     case "negation":
     case "K":
     case "E":
     case "C":
-      return noHoles(f.formula);
+      return noHoles(formula.formula);
     case "proposition":
     case "formula":
       return true;
     default:
-      throw new Error("Invalid formula type");
+      throw new Error("Invalid formula: " + formula);
   }
 }
 
@@ -150,6 +150,6 @@ export function fill(formula, hole) {
     case "formula":
       return formula;
     default:
-      throw new Error("Invalid formula type");
+      throw new Error("Invalid formula: " + formula);
   }
 }

@@ -1,4 +1,4 @@
-const axiomsList = [
+const AxiomsKEC = [
   // A1: Propositional tautologies
   // TODO: implement
   {
@@ -156,4 +156,4 @@ const axiomsList = [
   },
 ];
 
-export default axiomsList;
+export default AxiomsKEC;

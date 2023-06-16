@@ -1,7 +1,7 @@
 import equal from "fast-deep-equal";
 
-import axiomsList from "../data/AxiomsKEC";
-import rulesList from "../data/RulesK";
+import axiomsList from "../data/AxiomsS5EC";
+import rulesList from "../data/RulesS5EC";
 import shortcuts from "../data/Shortcuts";
 import { check, noHoles } from "../utils/Engine";
 

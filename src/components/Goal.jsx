@@ -20,7 +20,7 @@ function Goal({ setTree }) {
     } catch (e) {
       console.error(e);
       setTree(new Tree({ type: "hole" }));
-      target.setCustomValidity("invalid formula");
+      target.setCustomValidity("This formula is not well-formed");
     }
     setValidated(target.value !== "");
   }
