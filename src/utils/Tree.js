@@ -1,8 +1,6 @@
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
 
-import axiomsList from "../data/AxiomsS5EC";
-import rulesList from "../data/RulesS5EC";
-import shortcuts from "../data/Shortcuts";
+import systemPA from "../data/SystemPA";
 import { check, noHoles } from "../utils/Engine";
 
 export class Tree {
@@ -10,13 +8,7 @@ export class Tree {
     this.id = v4();
     this.value = value;
     this.base = base;
-    this.baseList = axiomsList
-      .filter((axiom) => check(value, axiom, true))
-      .concat(
-        rulesList.filter((rule) => check(value, rule, false))
-      ).concat(
-        shortcuts.filter((shortcut) => check(value, shortcut, false))
-      );
+    this.baseList = systemPA.filter((base) => check(value, base));
     this.validated = validated;
     this.children = children;
     this.inputEnabled = this.children.some((child) => !noHoles(child.value));
@@ -34,8 +26,8 @@ export class Tree {
       this.validated = validated;
       this.children = children;
     } else {
-      this.children = this.children.map(
-        (c) => c.update(node, base, validated, children)
+      this.children = this.children.map((c) =>
+        c.update(node, base, validated, children)
       );
     }
     const tree = new Tree(this.value, this.base, this.validated, this.children);

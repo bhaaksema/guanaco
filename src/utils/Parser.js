@@ -71,7 +71,7 @@ class FormulaParser extends EmbeddedActionsParser {
       return { type, left, right };
     });
 
-    // unary ::= ( ! | E | C ) subformula
+    // unary ::= ( ! | E | C | [ subformula ] ) subformula
     this.RULE("unary", () => {
       const type = this.OR([
         {
@@ -82,12 +82,25 @@ class FormulaParser extends EmbeddedActionsParser {
         },
         { ALT: () => { return this.CONSUME(tokens.E).tokenType.name; } },
         { ALT: () => { return this.CONSUME(tokens.C).tokenType.name; } },
+        {
+          ALT: () => {
+            this.CONSUME(tokens.LSay);
+            return "announcement";
+          }
+        },
       ]);
+
+      if (type === "announcement") {
+        const left = this.SUBRULE(this.subformula);
+        this.CONSUME(tokens.RSay);
+        const right = this.SUBRULE1(this.subformula);
+        return { type, left, right };
+      }
 
       return { type: type, formula: this.SUBRULE(this.subformula) };
     });
 
-    // knowledge ::= K { agent } subformula
+    // knowledge ::= K agent subformula
     this.RULE("knowledge", () => {
       this.CONSUME(tokens.K);
       const agent = this.CONSUME(tokens.Agent).image;

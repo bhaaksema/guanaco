@@ -22,9 +22,13 @@ function pretty(formula, top = true) {
       return `${un[formula.type]} ${pretty(formula.formula, false)}`;
     case "K":
       return knowledge(formula);
+    case "announcement":
+      return `[${pretty(formula.left, false)}] ${pretty(formula.right, false)}`;
     case "proposition":
     case "formula":
       return formula.value;
+    case "bottom":
+      return "⊥";
     default:
       throw new Error(`Unknown formula type: ${formula.type}`);
   }
