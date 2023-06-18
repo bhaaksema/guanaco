@@ -3,6 +3,7 @@ import systemS5 from "./SystemS5";
 import systemPA from "./SystemPA";
 import systemKEC from "./SystemKEC";
 import systemS5EC from "./SystemS5EC";
+import systemPAC from "./SystemPAC";
 import shortcuts from "./Shortcuts";
 
 const systems = {
@@ -11,6 +12,7 @@ const systems = {
   PA: systemPA,
   KEC: systemKEC,
   S5EC: systemS5EC,
+  PAC: systemPAC,
 };
 
 for (const sys in systems) {
