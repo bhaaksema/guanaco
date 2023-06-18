@@ -11,11 +11,11 @@ class FormulaParser extends EmbeddedActionsParser {
       return this.OR([
         {
           GATE: this.BACKTRACK(this.binary),
-          ALT: () => { return this.SUBRULE(this.binary); }
+          ALT: () => { return this.SUBRULE(this.binary); },
         },
-        { ALT: () => { return this.SUBRULE(this.unary); } },
-        { ALT: () => { return this.SUBRULE(this.knowledge); } },
-        { ALT: () => { return this.SUBRULE(this.atom); } },
+        { ALT: () => { return this.SUBRULE(this.unary); }, },
+        { ALT: () => { return this.SUBRULE(this.knowledge); }, },
+        { ALT: () => { return this.SUBRULE(this.atom); }, },
       ]);
     });
 
@@ -30,9 +30,9 @@ class FormulaParser extends EmbeddedActionsParser {
             return formula;
           },
         },
-        { ALT: () => { return this.SUBRULE(this.unary); } },
-        { ALT: () => { return this.SUBRULE(this.knowledge); } },
-        { ALT: () => { return this.SUBRULE(this.atom); } },
+        { ALT: () => { return this.SUBRULE(this.unary); }, },
+        { ALT: () => { return this.SUBRULE(this.knowledge); }, },
+        { ALT: () => { return this.SUBRULE(this.atom); }, },
       ]);
     });
 
@@ -44,26 +44,25 @@ class FormulaParser extends EmbeddedActionsParser {
           ALT: () => {
             this.CONSUME(tokens.And);
             return "conjunction";
-          }
-
+          },
         },
         {
           ALT: () => {
             this.CONSUME(tokens.Or);
             return "disjunction";
-          }
+          },
         },
         {
           ALT: () => {
             this.CONSUME(tokens.To);
             return "implication";
-          }
+          },
         },
         {
           ALT: () => {
             this.CONSUME(tokens.Equiv);
             return "equivalence";
-          }
+          },
         },
       ]);
 
@@ -78,15 +77,15 @@ class FormulaParser extends EmbeddedActionsParser {
           ALT: () => {
             this.CONSUME(tokens.Not);
             return "negation";
-          }
+          },
         },
-        { ALT: () => { return this.CONSUME(tokens.E).tokenType.name; } },
-        { ALT: () => { return this.CONSUME(tokens.C).tokenType.name; } },
+        { ALT: () => { return this.CONSUME(tokens.E).tokenType.name; }, },
+        { ALT: () => { return this.CONSUME(tokens.C).tokenType.name; }, },
         {
           ALT: () => {
             this.CONSUME(tokens.LSay);
             return "announcement";
-          }
+          },
         },
       ]);
 
@@ -110,17 +109,26 @@ class FormulaParser extends EmbeddedActionsParser {
 
     // atom ::= proposition | variable
     this.RULE("atom", () => {
-      return this.OR([{
-        ALT: () => {
-          const value = this.CONSUME(tokens.Proposition).image;
-          return { type: "proposition", value: value };
-        }
-      }, {
-        ALT: () => {
-          const value = this.CONSUME(tokens.Formula).image;
-          return { type: "formula", value: value };
-        }
-      }]);
+      return this.OR([
+        {
+          ALT: () => {
+            const value = this.CONSUME(tokens.Proposition).image;
+            return { type: "proposition", value: value };
+          },
+        },
+        {
+          ALT: () => {
+            const value = this.CONSUME(tokens.Formula).image;
+            return { type: "formula", value: value };
+          },
+        },
+        {
+          ALT: () => {
+            this.CONSUME(tokens.Bottom);
+            return { type: "bottom" };
+          },
+        },
+      ]);
     });
 
     this.performSelfAnalysis();
