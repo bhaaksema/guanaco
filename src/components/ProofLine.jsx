@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
-import Collapse from "react-bootstrap/Collapse";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import { Collapse, Container, Navbar } from "react-bootstrap";
 
 import HoleInput from "./HoleInput";
 import RuleSelect from "./RuleSelect";

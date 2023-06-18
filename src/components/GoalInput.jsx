@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
+import { Form, FloatingLabel } from "react-bootstrap";
 
 import parse from "../utils/Parser";
 
@@ -31,7 +30,7 @@ function GoalInput({ setRoot }) {
   }
 
   return (
-    <Form noValidate validated={validated} className="mt-3">
+    <Form noValidate validated={validated} className="my-2">
       <FloatingLabel label="Goal">
         <Form.Control
           placeholder="enter goal"

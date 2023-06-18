@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import { Form, InputGroup } from "react-bootstrap";
 
 import systemPA from "../data/SystemPA";
+import shortcuts from "../data/Shortcuts";
 import { check, noHoles } from "../utils/Engine";
 import { Tree, nodeIndex } from "../utils/Tree";
 
@@ -19,7 +19,9 @@ function RuleSelect({ node, root, setRoot }) {
 
     // find the selected rule
     const ruleName = target.value;
-    const rule = systemPA.find((rule) => rule.name === ruleName);
+    const rule = systemPA
+      .concat(shortcuts)
+      .find((rule) => rule.name === ruleName);
 
     // update data model of the proof tree
     if (rule.premises.length > 0) {
@@ -38,12 +40,15 @@ function RuleSelect({ node, root, setRoot }) {
   }
 
   return (
-    <Form validated={node.validated} className="d-flex w-25">
+    <Form validated={node.validated} className="d-flex">
       <InputGroup hasValidation>
         <Form.Select
           onChange={(event) => handleSelect(event.target)}
           value={node.rule}
           disabled={node.ruleList.length === 0}
+          style={
+            node.children.length > 0 ? { width: "7em" } : { width: "11em" }
+          }
         >
           <option disabled value={0}>
             Rule
@@ -54,7 +59,7 @@ function RuleSelect({ node, root, setRoot }) {
         </Form.Select>
       </InputGroup>
       {node.children.length > 0 && (
-        <InputGroup.Text>
+        <InputGroup.Text style={{ width: "4em" }}>
           {node.children.map((c) => nodeIndex(root, c)).join(", ")}
         </InputGroup.Text>
       )}

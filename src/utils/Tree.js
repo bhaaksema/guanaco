@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 
 import systemPA from "../data/SystemPA";
+import shortcuts from "../data/Shortcuts";
 import { check, noHoles } from "../utils/Engine";
 
 export class Tree {
@@ -8,7 +9,7 @@ export class Tree {
     this.id = v4();
     this.formula = formula;
     this.rule = rule;
-    this.ruleList = systemPA.filter((rule) => check(formula, rule));
+    this.ruleList = systemPA.concat(shortcuts).filter((rule) => check(formula, rule));
     this.validated = validated;
     this.children = children;
     this.inputEnabled = this.children.some((child) => !noHoles(child.formula));

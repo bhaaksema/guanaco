@@ -1,10 +1,6 @@
 import PropTypes from "prop-types";
 import { useRef } from "react";
-
-import Button from "react-bootstrap/Button";
-import Collapse from "react-bootstrap/Collapse";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
+import { Button, Collapse, Form, InputGroup } from "react-bootstrap";
 
 import { Tree } from "../utils/Tree";
 import { fill } from "../utils/Engine";

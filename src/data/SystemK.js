@@ -1,8 +1,6 @@
 import Rule from "../utils/Rule";
-import shortcuts from "./Shortcuts";
 
 const systemK = [
-  ...shortcuts,
   // A1: Propositional tautologies
   // TODO: implement
   new Rule("A1", 0, 0, { type: "hole", hole: 0 }),
