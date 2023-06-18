@@ -8,8 +8,8 @@ const shortcuts = [
     2,
     {
       type: "implication",
-      left: { type: "K", agent: 0, formula: { type: "hole", hole: 0 } },
-      right: { type: "K", agent: 0, formula: { type: "hole", hole: 1 } },
+      left: { type: "K", agent: 0, value: { type: "hole", hole: 0 } },
+      right: { type: "K", agent: 0, value: { type: "hole", hole: 1 } },
     },
     [
       {
@@ -85,8 +85,8 @@ const shortcuts = [
     2,
     {
       type: "equivalence",
-      left: { type: "K", agent: 0, formula: { type: "hole", hole: 0 } },
-      right: { type: "K", agent: 0, formula: { type: "hole", hole: 1 } },
+      left: { type: "K", agent: 0, value: { type: "hole", hole: 0 } },
+      right: { type: "K", agent: 0, value: { type: "hole", hole: 1 } },
     },
     [
       {
@@ -175,8 +175,8 @@ const shortcuts = [
     2,
     {
       type: "implication",
-      left: { type: "negation", formula: { type: "hole", hole: 1 } },
-      right: { type: "negation", formula: { type: "hole", hole: 0 } },
+      left: { type: "negation", value: { type: "hole", hole: 1 } },
+      right: { type: "negation", value: { type: "hole", hole: 0 } },
     },
     [
       {
@@ -202,7 +202,7 @@ const shortcuts = [
         left: {
           type: "conjunction",
           left: { type: "hole", hole: 0 },
-          right: { type: "negation", formula: { type: "hole", hole: 1 } },
+          right: { type: "negation", value: { type: "hole", hole: 1 } },
         },
         right: { type: "bottom" },
       },
@@ -280,7 +280,7 @@ const shortcuts = [
     {
       type: "implication",
       left: { type: "hole", hole: 0 },
-      right: { type: "negation", formula: { type: "hole", hole: 1 } },
+      right: { type: "negation", value: { type: "hole", hole: 1 } },
     },
     [
       {
@@ -301,8 +301,8 @@ const shortcuts = [
     2,
     {
       type: "implication",
-      left: { type: "E", formula: { type: "hole", hole: 0 } },
-      right: { type: "E", formula: { type: "hole", hole: 1 } },
+      left: { type: "E", value: { type: "hole", hole: 0 } },
+      right: { type: "E", value: { type: "hole", hole: 1 } },
     },
     [
       {
@@ -319,8 +319,8 @@ const shortcuts = [
     2,
     {
       type: "implication",
-      left: { type: "C", formula: { type: "hole", hole: 0 } },
-      right: { type: "C", formula: { type: "hole", hole: 1 } },
+      left: { type: "C", value: { type: "hole", hole: 0 } },
+      right: { type: "C", value: { type: "hole", hole: 1 } },
     },
     [
       {

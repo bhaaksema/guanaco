@@ -10,7 +10,7 @@ const systemS5 = [
     left: {
       type: "K",
       agent: 0,
-      formula: { type: "hole", hole: 0 },
+      value: { type: "hole", hole: 0 },
     },
     right: { type: "hole", hole: 0 },
   }),
@@ -21,15 +21,15 @@ const systemS5 = [
     left: {
       type: "K",
       agent: 0,
-      formula: { type: "hole", hole: 0 },
+      value: { type: "hole", hole: 0 },
     },
     right: {
       type: "K",
       agent: 0,
-      formula: {
+      value: {
         type: "K",
         agent: 0,
-        formula: { type: "hole", hole: 0 },
+        value: { type: "hole", hole: 0 },
       },
     },
   }),
@@ -39,21 +39,21 @@ const systemS5 = [
     type: "implication",
     left: {
       type: "negation",
-      formula: {
+      value: {
         type: "K",
         agent: 0,
-        formula: { type: "hole", hole: 0 },
+        value: { type: "hole", hole: 0 },
       },
     },
     right: {
       type: "K",
       agent: 0,
-      formula: {
+      value: {
         type: "negation",
-        formula: {
+        value: {
           type: "K",
           agent: 0,
-          formula: { type: "hole", hole: 0 },
+          value: { type: "hole", hole: 0 },
         },
       },
     },

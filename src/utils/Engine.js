@@ -1,26 +1,26 @@
 import equal from "fast-deep-equal";
 
-export function check(formula, base) {
+export function check(formula, rule) {
   // if there are holes in formula, return false
   if (!noHoles(formula)) return false;
 
-  // check formula against base conclusion
+  // check formula against rule conclusion
   let [result, agents, holes, propositions] = checkFormula(
     formula,
-    base.conclusion,
-    new Array(base.agents),
-    new Array(base.holes),
-    new Array(base.propositions)
+    rule.conclusion,
+    new Array(rule.agents),
+    new Array(rule.holes),
+    new Array(rule.propositions)
   );
 
-  // if base is axiom, return result
-  if (base.premises.length === 0) return result;
+  // if rule is axiom, return result
+  if (rule.premises.length === 0) return result;
 
   // if result is false, return it
   if (!result) return false;
 
-  // if base is not axiom, init premises
-  return base.premises.map((premise) =>
+  // if rule is not axiom, init premises
+  return rule.premises.map((premise) =>
     initPremise(premise, agents, holes, propositions)
   );
 }
@@ -63,8 +63,8 @@ function checkFormula(formula, ref, agents, holes, propositions) {
     case "E":
     case "C":
       return checkFormula(
-        formula.formula,
-        ref.formula,
+        formula.value,
+        ref.value,
         agents,
         holes,
         propositions
@@ -73,8 +73,8 @@ function checkFormula(formula, ref, agents, holes, propositions) {
       if (agents[ref.agent] === undefined) {
         agents[ref.agent] = formula.agent;
         return checkFormula(
-          formula.formula,
-          ref.formula,
+          formula.value,
+          ref.value,
           agents,
           holes,
           propositions
@@ -83,8 +83,8 @@ function checkFormula(formula, ref, agents, holes, propositions) {
         return [false, agents, holes, propositions];
       } else {
         return checkFormula(
-          formula.formula,
-          ref.formula,
+          formula.value,
+          ref.value,
           agents,
           holes,
           propositions
@@ -106,7 +106,7 @@ function checkFormula(formula, ref, agents, holes, propositions) {
       // TODO: check if formula is bottom
       return [false, agents, holes, propositions];
     default:
-      throw new Error("Invalid reference: " + ref);
+      throw new Error("Invalid reference: " + ref.type);
   }
 }
 
@@ -129,13 +129,13 @@ function initPremise(premise, agents, holes, propositions) {
     case "C":
       return {
         type: premise.type,
-        formula: initPremise(premise.formula, agents, holes),
+        value: initPremise(premise.value, agents, holes),
       };
     case "K":
       return {
         type: premise.type,
         agent: agents[premise.agent],
-        formula: initPremise(premise.formula, agents, holes),
+        value: initPremise(premise.value, agents, holes),
       };
     case "proposition":
       return propositions[premise.proposition];
@@ -160,13 +160,13 @@ export function noHoles(formula) {
     case "K":
     case "E":
     case "C":
-      return noHoles(formula.formula);
+      return noHoles(formula.value);
     case "proposition":
     case "formula":
     case "bottom":
       return true;
     default:
-      throw new Error("Invalid formula: " + formula);
+      throw new Error("Invalid formula: " + formula.type);
   }
 }
 
@@ -189,19 +189,19 @@ export function fill(formula, hole) {
     case "C":
       return {
         type: formula.type,
-        formula: fill(formula.formula, hole),
+        value: fill(formula.value, hole),
       };
     case "K":
       return {
         type: formula.type,
         agent: formula.agent,
-        formula: fill(formula.formula, hole),
+        value: fill(formula.value, hole),
       };
     case "proposition":
     case "formula":
     case "bottom":
       return formula;
     default:
-      throw new Error("Invalid formula: " + formula);
+      throw new Error("Invalid formula: " + formula.type);
   }
 }

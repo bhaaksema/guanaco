@@ -12,10 +12,10 @@ import parse from "../utils/Parser";
 
 HoleInput.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
-  setTree: PropTypes.func.isRequired,
+  setRoot: PropTypes.func.isRequired,
 };
 
-function HoleInput({ node, setTree }) {
+function HoleInput({ node, setRoot }) {
   const input = useRef(null);
 
   function handleTyping(target) {
@@ -27,8 +27,8 @@ function HoleInput({ node, setTree }) {
     } catch (e) {
       target.setCustomValidity("invalid formula");
     }
-    setTree((tree) =>
-      tree.update(node, node.base, target.value !== "", node.children)
+    setRoot((root) =>
+      root.update(node, node.rule, target.value !== "", node.children)
     );
 
     return result;
@@ -38,10 +38,10 @@ function HoleInput({ node, setTree }) {
     const hole = handleTyping(input.current);
     if (hole) {
       node.children = node.children.map((child) =>
-        child.setValue(fill(child.value, hole))
+        child.setValue(fill(child.formula, hole))
       );
     }
-    setTree((tree) => tree.update(node, node.base, true, node.children));
+    setRoot((root) => root.update(node, node.rule, true, node.children));
     event.preventDefault();
   }
 

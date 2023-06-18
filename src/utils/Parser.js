@@ -96,15 +96,15 @@ class FormulaParser extends EmbeddedActionsParser {
         return { type, left, right };
       }
 
-      return { type: type, formula: this.SUBRULE(this.subformula) };
+      return { type: type, value: this.SUBRULE(this.subformula) };
     });
 
     // knowledge ::= K agent subformula
     this.RULE("knowledge", () => {
       this.CONSUME(tokens.K);
       const agent = this.CONSUME(tokens.Agent).image;
-      const formula = this.SUBRULE(this.subformula);
-      return { type: "K", agent, formula };
+      const value = this.SUBRULE(this.subformula);
+      return { type: "K", agent, value };
     });
 
     // atom ::= proposition | variable

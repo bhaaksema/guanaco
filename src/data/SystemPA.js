@@ -34,7 +34,7 @@ const systemPA = [
       left: { type: "hole", hole: 0 },
       right: {
         type: "negation",
-        formula: { type: "hole", hole: 1 },
+        value: { type: "hole", hole: 1 },
       },
     },
     right: {
@@ -42,7 +42,7 @@ const systemPA = [
       left: { type: "hole", hole: 0 },
       right: {
         type: "negation",
-        formula: {
+        value: {
           type: "announcement",
           left: { type: "hole", hole: 0 },
           right: { type: "hole", hole: 1 },
@@ -87,7 +87,7 @@ const systemPA = [
       right: {
         type: "K",
         agent: 0,
-        formula: { type: "hole", hole: 1 },
+        value: { type: "hole", hole: 1 },
       },
     },
     right: {
@@ -96,7 +96,7 @@ const systemPA = [
       right: {
         type: "K",
         agent: 0,
-        formula: {
+        value: {
           type: "announcement",
           left: { type: "hole", hole: 0 },
           right: { type: "hole", hole: 1 },

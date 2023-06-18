@@ -8,32 +8,32 @@ import { Tree, nodeIndex } from "../utils/Tree";
 
 RuleSelect.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
-  tree: PropTypes.instanceOf(Tree).isRequired,
-  setTree: PropTypes.func.isRequired,
+  root: PropTypes.instanceOf(Tree).isRequired,
+  setRoot: PropTypes.func.isRequired,
 };
 
-function RuleSelect({ node, tree, setTree }) {
+function RuleSelect({ node, root, setRoot }) {
   function handleSelect(target) {
-    // bases are always valid when selected
+    // rules are always valid when selected
     target.setCustomValidity("");
 
     // find the selected rule
-    const baseName = target.value;
-    const base = systemPA.find((base) => base.name === baseName);
+    const ruleName = target.value;
+    const rule = systemPA.find((rule) => rule.name === ruleName);
 
     // update data model of the proof tree
-    if (base.premises.length > 0) {
-      // base is a rule, obtain premises
-      const premises = check(node.value, base);
+    if (rule.premises.length > 0) {
+      // rule is not an axiom, obtain premises
+      const premises = check(node.formula, rule);
       // generate children nodes from premises
       const children = premises.map((premise) => new Tree(premise));
       // validate the node if there are no holes or if there is only one premise
       const validated = premises.length === 1 || premises.every(noHoles);
-      // update the tree
-      setTree((tree) => tree.update(node, baseName, validated, children));
+      // update the root
+      setRoot((root) => root.update(node, ruleName, validated, children));
     } else {
-      // base is an axiom, enable validation except for A1
-      setTree((tree) => tree.update(node, baseName, baseName !== "A1", []));
+      // rule is an axiom, enable validation except for A1
+      setRoot((root) => root.update(node, ruleName, ruleName !== "A1", []));
     }
   }
 
@@ -42,20 +42,20 @@ function RuleSelect({ node, tree, setTree }) {
       <InputGroup hasValidation>
         <Form.Select
           onChange={(event) => handleSelect(event.target)}
-          value={node.base}
-          disabled={node.baseList.length === 0}
+          value={node.rule}
+          disabled={node.ruleList.length === 0}
         >
           <option disabled value={0}>
             Rule
           </option>
-          {node.baseList.map((base) => (
-            <option key={base.name}>{base.name}</option>
+          {node.ruleList.map((rule) => (
+            <option key={rule.name}>{rule.name}</option>
           ))}
         </Form.Select>
       </InputGroup>
       {node.children.length > 0 && (
         <InputGroup.Text>
-          {node.children.map((c) => nodeIndex(tree, c)).join(", ")}
+          {node.children.map((c) => nodeIndex(root, c)).join(", ")}
         </InputGroup.Text>
       )}
     </Form>

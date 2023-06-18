@@ -5,17 +5,14 @@ import ProofLine from "./ProofLine";
 import GoalInput from "./GoalInput";
 
 function Proof() {
-  const [tree, setTree] = useState(new Tree({ type: "hole" }));
+  const [root, setRoot] = useState(new Tree({ type: "hole" }));
 
   return (
     <>
-      {tree &&
-        tree
-          .toArray()
-          .map((node) => (
-            <ProofLine key={node.id} {...{ node, tree, setTree }} />
-          ))}
-      <GoalInput {...{ setTree }} />
+      {root.toArray().map((node) => (
+        <ProofLine key={node.id} {...{ node, root, setRoot }} />
+      ))}
+      <GoalInput {...{ setRoot }} />
     </>
   );
 }

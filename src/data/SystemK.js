@@ -12,18 +12,18 @@ const systemK = [
     type: "implication",
     left: {
       type: "conjunction",
-      left: { type: "K", agent: 0, formula: { type: "hole", hole: 0 } },
+      left: { type: "K", agent: 0, value: { type: "hole", hole: 0 } },
       right: {
         type: "K",
         agent: 0,
-        formula: {
+        value: {
           type: "implication",
           left: { type: "hole", hole: 0 },
           right: { type: "hole", hole: 1 },
         },
       },
     },
-    right: { type: "K", agent: 0, formula: { type: "hole", hole: 1 } },
+    right: { type: "K", agent: 0, value: { type: "hole", hole: 1 } },
   }),
   // A2': Distribution of K over ->
   // Ka (f1 -> f2) -> (Ka f1 -> Ka f2)
@@ -32,7 +32,7 @@ const systemK = [
     left: {
       type: "K",
       agent: 0,
-      formula: {
+      value: {
         type: "implication",
         left: { type: "hole", hole: 0 },
         right: { type: "hole", hole: 1 },
@@ -40,8 +40,8 @@ const systemK = [
     },
     right: {
       type: "implication",
-      left: { type: "K", agent: 0, formula: { type: "hole", hole: 0 } },
-      right: { type: "K", agent: 0, formula: { type: "hole", hole: 1 } },
+      left: { type: "K", agent: 0, value: { type: "hole", hole: 0 } },
+      right: { type: "K", agent: 0, value: { type: "hole", hole: 1 } },
     },
   }),
   // Modus Ponens
@@ -61,7 +61,7 @@ const systemK = [
     {
       type: "K",
       agent: 0,
-      formula: { type: "hole", hole: 0 },
+      value: { type: "hole", hole: 0 },
     },
     [{ type: "hole", hole: 0 }]
   ),

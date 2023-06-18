@@ -6,26 +6,26 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import parse from "../utils/Parser";
 
 GoalInput.propTypes = {
-  setTree: PropTypes.func.isRequired,
+  setRoot: PropTypes.func.isRequired,
 };
 
-function GoalInput({ setTree }) {
+function GoalInput({ setRoot }) {
   const [validated, setValidated] = useState(false);
 
   function handleTyping(target) {
     // enable validation if the user has typed something
     setValidated(target.value !== "");
 
-    // update the tree
-    setTree((tree) => {
+    // update the root
+    setRoot((root) => {
       try {
         // if the formula is well-formed, remove the error message
         target.setCustomValidity("");
-        return tree.setValue(parse(target.value));
+        return root.setValue(parse(target.value));
       } catch (e) {
         // if the formula is not well-formed, show the error message
         target.setCustomValidity("This formula is not well-formed");
-        return tree.setValue({ type: "hole" });
+        return root.setValue({ type: "hole" });
       }
     });
   }

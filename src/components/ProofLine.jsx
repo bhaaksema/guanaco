@@ -10,23 +10,23 @@ import { Tree, nodeIndex } from "../utils/Tree";
 
 ProofLine.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
-  tree: PropTypes.instanceOf(Tree).isRequired,
-  setTree: PropTypes.func.isRequired,
+  root: PropTypes.instanceOf(Tree).isRequired,
+  setRoot: PropTypes.func.isRequired,
 };
 
-function ProofLine({ node, tree, setTree }) {
+function ProofLine({ node, root, setRoot }) {
   return (
     <>
       <Collapse in={true} appear>
         <div>
-          <HoleInput {...{ node, setTree }} />
+          <HoleInput {...{ node, setRoot }} />
           <Navbar>
             <Container className="border-bottom rounded" fluid>
               <Navbar.Brand>
-                {nodeIndex(tree, node)}&emsp;⊢&ensp;{pretty(node.value)}
+                {nodeIndex(root, node)}&emsp;⊢&ensp;{pretty(node.formula)}
               </Navbar.Brand>
             </Container>
-            <RuleSelect {...{ node, tree, setTree }} />
+            <RuleSelect {...{ node, root, setRoot }} />
           </Navbar>
         </div>
       </Collapse>

@@ -4,14 +4,14 @@ import systemPA from "../data/SystemPA";
 import { check, noHoles } from "../utils/Engine";
 
 export class Tree {
-  constructor(value, base = 0, validated = false, children = []) {
+  constructor(formula, rule = 0, validated = false, children = []) {
     this.id = v4();
-    this.value = value;
-    this.base = base;
-    this.baseList = systemPA.filter((base) => check(value, base));
+    this.formula = formula;
+    this.rule = rule;
+    this.ruleList = systemPA.filter((rule) => check(formula, rule));
     this.validated = validated;
     this.children = children;
-    this.inputEnabled = this.children.some((child) => !noHoles(child.value));
+    this.inputEnabled = this.children.some((child) => !noHoles(child.formula));
   }
 
   toArray() {
@@ -20,29 +20,29 @@ export class Tree {
     return arr;
   }
 
-  update(node, base, validated, children) {
+  update(node, rule, validated, children) {
     if (this.id === node.id) {
-      this.base = base;
+      this.rule = rule;
       this.validated = validated;
       this.children = children;
     } else {
       this.children = this.children.map((c) =>
-        c.update(node, base, validated, children)
+        c.update(node, rule, validated, children)
       );
     }
-    const tree = new Tree(this.value, this.base, this.validated, this.children);
-    tree.id = this.id;
-    return tree;
+    const root = new Tree(this.formula, this.rule, this.validated, this.children);
+    root.id = this.id;
+    return root;
   }
 
-  setValue(value) {
-    const tree = new Tree(value);
-    tree.id = this.id;
-    return tree;
+  setValue(formula) {
+    const root = new Tree(formula);
+    root.id = this.id;
+    return root;
   }
 }
 
-export function nodeIndex(tree, node) {
-  const list = tree.toArray();
+export function nodeIndex(root, node) {
+  const list = root.toArray();
   return list.findIndex((n) => n.id === node.id) + 1;
 }

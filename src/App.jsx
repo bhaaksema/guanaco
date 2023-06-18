@@ -11,22 +11,22 @@ export default function App() {
 
   return (
     <>
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="sm">
         <Container>
           <Navbar.Brand>Guanaco</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href={documentation} target="_blank">
-              Documentation
-            </Nav.Link>
-          </Nav>
           <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>
-              Maintained by:{" "}
-              <a href={maintainer} target="_blank" rel="noreferrer">
-                bhaaksema
-              </a>
-            </Navbar.Text>
+          <Navbar.Collapse>
+            <Nav className="me-auto">
+              <Nav.Link href={documentation} target="_blank">
+                Documentation
+              </Nav.Link>
+            </Nav>
+            <Nav className="justify-content-end">
+              <Navbar.Text>Maintained by:</Navbar.Text>
+              <Nav.Link href={maintainer} target="_blank">
+                <u>bhaaksema</u>
+              </Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

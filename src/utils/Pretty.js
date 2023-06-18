@@ -17,10 +17,10 @@ function pretty(formula, top = true) {
     case "equivalence":
       return binary(top, formula);
     case "negation":
-      return `${un[formula.type]}${pretty(formula.formula, false)}`;
+      return `${un[formula.type]}${pretty(formula.value, false)}`;
     case "E":
     case "C":
-      return `${un[formula.type]} ${pretty(formula.formula, false)}`;
+      return `${un[formula.type]} ${pretty(formula.value, false)}`;
     case "K":
       return knowledge(formula);
     case "announcement":
@@ -43,7 +43,7 @@ function binary(top, formula) {
 }
 
 function knowledge(formula) {
-  const subformula = pretty(formula.formula, false);
+  const subformula = pretty(formula.value, false);
   return `${un[formula.type]}${formula.agent} ${subformula}`;
 }
 
