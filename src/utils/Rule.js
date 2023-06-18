@@ -1,4 +1,4 @@
-class Justification {
+class Rule {
   constructor(
     name,
     agents,
@@ -16,4 +16,4 @@ class Justification {
   }
 }
 
-export default Justification;
+export default Rule;

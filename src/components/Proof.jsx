@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { Tree } from "../utils/Tree";
-import Line from "./Line";
-import Goal from "./Goal";
+import ProofLine from "./ProofLine";
+import GoalInput from "./GoalInput";
 
 function Proof() {
   const [tree, setTree] = useState(new Tree({ type: "hole" }));
@@ -12,8 +12,10 @@ function Proof() {
       {tree &&
         tree
           .toArray()
-          .map((node) => <Line key={node.id} {...{ node, tree, setTree }} />)}
-      <Goal {...{ setTree }} />
+          .map((node) => (
+            <ProofLine key={node.id} {...{ node, tree, setTree }} />
+          ))}
+      <GoalInput {...{ setTree }} />
     </>
   );
 }

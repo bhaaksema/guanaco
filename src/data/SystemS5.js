@@ -1,11 +1,11 @@
-import Justification from "../utils/Justification";
+import Rule from "../utils/Rule";
 import systemK from "./SystemK";
 
 const systemS5 = [
   ...systemK,
   // A3: Knowledge implies truth
   // Ki p -> p
-  new Justification("A3", 1, 1, {
+  new Rule("A3", 1, 1, {
     type: "implication",
     left: {
       type: "K",
@@ -16,7 +16,7 @@ const systemS5 = [
   }),
   // A4: Positive introspection
   // Ki p -> Ki Ki p
-  new Justification("A4", 1, 1, {
+  new Rule("A4", 1, 1, {
     type: "implication",
     left: {
       type: "K",
@@ -35,7 +35,7 @@ const systemS5 = [
   }),
   // A5: Negative introspection
   // ! Ki p -> Ki ! Ki p
-  new Justification("A5", 1, 1, {
+  new Rule("A5", 1, 1, {
     type: "implication",
     left: {
       type: "negation",

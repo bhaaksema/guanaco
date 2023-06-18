@@ -3,30 +3,30 @@ import Collapse from "react-bootstrap/Collapse";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
-import Input from "./Input";
-import Base from "./Base";
+import HoleInput from "./HoleInput";
+import RuleSelect from "./RuleSelect";
 import pretty from "../utils/Pretty";
 import { Tree, nodeIndex } from "../utils/Tree";
 
-Line.propTypes = {
+ProofLine.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   tree: PropTypes.instanceOf(Tree).isRequired,
   setTree: PropTypes.func.isRequired,
 };
 
-function Line({ node, tree, setTree }) {
+function ProofLine({ node, tree, setTree }) {
   return (
     <>
       <Collapse in={true} appear>
         <div>
-          <Input {...{ node, setTree }} />
+          <HoleInput {...{ node, setTree }} />
           <Navbar>
             <Container className="border-bottom rounded" fluid>
               <Navbar.Brand>
                 {nodeIndex(tree, node)}&emsp;⊢&ensp;{pretty(node.value)}
               </Navbar.Brand>
             </Container>
-            <Base {...{ node, tree, setTree }} />
+            <RuleSelect {...{ node, tree, setTree }} />
           </Navbar>
         </div>
       </Collapse>
@@ -34,4 +34,4 @@ function Line({ node, tree, setTree }) {
   );
 }
 
-export default Line;
+export default ProofLine;

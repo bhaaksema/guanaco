@@ -1,11 +1,11 @@
-import Justification from "../utils/Justification";
+import Rule from "../utils/Rule";
 import systemS5 from "./SystemS5";
 
 const systemPA = [
   ...systemS5,
   // A11: Atomic permanence
   // [f] -> p <-> (f -> p)
-  new Justification(
+  new Rule(
     "A11",
     0,
     1,
@@ -27,7 +27,7 @@ const systemPA = [
   ),
   // A12: Announcement and negation
   // [f1] !f2 <-> (f1 -> ![f1] f2)
-  new Justification("A12", 0, 2, {
+  new Rule("A12", 0, 2, {
     type: "equivalence",
     left: {
       type: "announcement",
@@ -52,7 +52,7 @@ const systemPA = [
   }),
   // A13: Announcement and conjunction
   // [f1] (f2 & f3) <-> ([f1] f2 & [f1] f3)
-  new Justification("A13", 0, 3, {
+  new Rule("A13", 0, 3, {
     type: "equivalence",
     left: {
       type: "announcement",
@@ -79,7 +79,7 @@ const systemPA = [
   }),
   // A14: Announcement and knowledge
   // [f1] Ka f2 <-> (f1 -> Ka [f1] f2)
-  new Justification("A14", 1, 2, {
+  new Rule("A14", 1, 2, {
     type: "equivalence",
     left: {
       type: "announcement",

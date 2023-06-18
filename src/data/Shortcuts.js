@@ -1,8 +1,8 @@
-import Justification from "../utils/Justification";
+import Rule from "../utils/Rule";
 
 const shortcuts = [
   // K-distribution
-  new Justification(
+  new Rule(
     "KD",
     1,
     2,
@@ -20,7 +20,7 @@ const shortcuts = [
     ]
   ),
   // Equivalence introduction
-  new Justification(
+  new Rule(
     "EI",
     0,
     2,
@@ -43,7 +43,7 @@ const shortcuts = [
     ]
   ),
   // Equivalence elimination
-  new Justification(
+  new Rule(
     "EE",
     0,
     2,
@@ -61,7 +61,7 @@ const shortcuts = [
     ]
   ),
   // Equivalence elimination
-  new Justification(
+  new Rule(
     "EE'",
     0,
     2,
@@ -79,7 +79,7 @@ const shortcuts = [
     ]
   ),
   // K-distribution <->
-  new Justification(
+  new Rule(
     "KD↔",
     1,
     2,
@@ -97,7 +97,7 @@ const shortcuts = [
     ]
   ),
   // Hypothetical syllogism
-  new Justification(
+  new Rule(
     "HS",
     0,
     3,
@@ -120,7 +120,7 @@ const shortcuts = [
     ]
   ),
   // Hypothetical syllogism <->
-  new Justification(
+  new Rule(
     "HS↔",
     0,
     3,
@@ -143,7 +143,7 @@ const shortcuts = [
     ]
   ),
   // Left-right strengthening
-  new Justification(
+  new Rule(
     "LR",
     0,
     3,
@@ -169,7 +169,7 @@ const shortcuts = [
     ]
   ),
   // Contraposition
-  new Justification(
+  new Rule(
     "CP",
     0,
     2,
@@ -187,7 +187,7 @@ const shortcuts = [
     ]
   ),
   // No Contradiction 1
-  new Justification(
+  new Rule(
     "NC",
     0,
     1,
@@ -209,7 +209,7 @@ const shortcuts = [
     ]
   ),
   // Combining
-  new Justification(
+  new Rule(
     "CO",
     0,
     4,
@@ -240,7 +240,7 @@ const shortcuts = [
     ]
   ),
   // Combining <->
-  new Justification(
+  new Rule(
     "CO↔",
     0,
     4,
@@ -273,7 +273,7 @@ const shortcuts = [
   // TODO: Substitution
 
   // No contradiction 2
-  new Justification(
+  new Rule(
     "NC'",
     0,
     1,
@@ -295,7 +295,7 @@ const shortcuts = [
     ]
   ),
   // E-distribution
-  new Justification(
+  new Rule(
     "ED",
     0,
     2,
@@ -313,7 +313,7 @@ const shortcuts = [
     ]
   ),
   // C-distribution
-  new Justification(
+  new Rule(
     "CD",
     0,
     2,

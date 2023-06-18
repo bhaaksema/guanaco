@@ -5,11 +5,11 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 import parse from "../utils/Parser";
 
-Goal.propTypes = {
+GoalInput.propTypes = {
   setTree: PropTypes.func.isRequired,
 };
 
-function Goal({ setTree }) {
+function GoalInput({ setTree }) {
   const [validated, setValidated] = useState(false);
 
   function handleTyping(target) {
@@ -46,4 +46,4 @@ function Goal({ setTree }) {
   );
 }
 
-export default Goal;
+export default GoalInput;

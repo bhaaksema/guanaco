@@ -1,14 +1,14 @@
-import Justification from "../utils/Justification";
+import Rule from "../utils/Rule";
 import shortcuts from "./Shortcuts";
 
 const systemK = [
   ...shortcuts,
   // A1: Propositional tautologies
   // TODO: implement
-  new Justification("A1", 0, 0, { type: "hole", hole: 0 }),
+  new Rule("A1", 0, 0, { type: "hole", hole: 0 }),
   // A2: Modus ponens for knowledge
   // (Ka f1 & Ka (f1 -> f2)) -> Ka f2
-  new Justification("A2", 1, 2, {
+  new Rule("A2", 1, 2, {
     type: "implication",
     left: {
       type: "conjunction",
@@ -27,7 +27,7 @@ const systemK = [
   }),
   // A2': Distribution of K over ->
   // Ka (f1 -> f2) -> (Ka f1 -> Ka f2)
-  new Justification("A2'", 1, 2, {
+  new Rule("A2'", 1, 2, {
     type: "implication",
     left: {
       type: "K",
@@ -45,7 +45,7 @@ const systemK = [
     },
   }),
   // Modus Ponens
-  new Justification("R1", 0, 2, { type: "hole", hole: 1 }, [
+  new Rule("R1", 0, 2, { type: "hole", hole: 1 }, [
     { type: "hole", hole: 0 },
     {
       type: "implication",
@@ -54,7 +54,7 @@ const systemK = [
     },
   ]),
   // Necessitation of knowledge
-  new Justification(
+  new Rule(
     "R2",
     1,
     1,

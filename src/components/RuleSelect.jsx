@@ -6,13 +6,13 @@ import systemPA from "../data/SystemPA";
 import { check, noHoles } from "../utils/Engine";
 import { Tree, nodeIndex } from "../utils/Tree";
 
-Base.propTypes = {
+RuleSelect.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   tree: PropTypes.instanceOf(Tree).isRequired,
   setTree: PropTypes.func.isRequired,
 };
 
-function Base({ node, tree, setTree }) {
+function RuleSelect({ node, tree, setTree }) {
   function handleSelect(target) {
     // bases are always valid when selected
     target.setCustomValidity("");
@@ -46,7 +46,7 @@ function Base({ node, tree, setTree }) {
           disabled={node.baseList.length === 0}
         >
           <option disabled value={0}>
-            Base
+            Rule
           </option>
           {node.baseList.map((base) => (
             <option key={base.name}>{base.name}</option>
@@ -62,4 +62,4 @@ function Base({ node, tree, setTree }) {
   );
 }
 
-export default Base;
+export default RuleSelect;

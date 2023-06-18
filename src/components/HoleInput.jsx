@@ -10,12 +10,12 @@ import { Tree } from "../utils/Tree";
 import { fill } from "../utils/Engine";
 import parse from "../utils/Parser";
 
-Input.propTypes = {
+HoleInput.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   setTree: PropTypes.func.isRequired,
 };
 
-function Input({ node, setTree }) {
+function HoleInput({ node, setTree }) {
   const input = useRef(null);
 
   function handleTyping(target) {
@@ -71,4 +71,4 @@ function Input({ node, setTree }) {
   );
 }
 
-export default Input;
+export default HoleInput;

@@ -1,4 +1,4 @@
-import Justification from "../utils/Justification";
+import Rule from "../utils/Rule";
 import systemK from "./SystemK";
 
 const systemKEC = [
@@ -7,13 +7,13 @@ const systemKEC = [
   // TODO: implement
 
   // A7: Common knowledge implies truth
-  new Justification("A7", 0, 1, {
+  new Rule("A7", 0, 1, {
     type: "implication",
     left: { type: "C", formula: { type: "hole", hole: 0 } },
     right: { type: "hole", hole: 0 },
   }),
   // A8: Mix of common knowledge
-  new Justification("A8", 0, 1, {
+  new Rule("A8", 0, 1, {
     type: "implication",
     left: { type: "C", formula: { type: "hole", hole: 0 } },
     right: {
@@ -22,7 +22,7 @@ const systemKEC = [
     },
   }),
   // A9: Modus ponens for common knowledge
-  new Justification("A9", 0, 2, {
+  new Rule("A9", 0, 2, {
     type: "implication",
     left: {
       type: "conjunction",
@@ -39,7 +39,7 @@ const systemKEC = [
     right: { type: "C", formula: { type: "hole", hole: 1 } },
   }),
   // A9': Distribution of C over ->
-  new Justification("A9'", 0, 2, {
+  new Rule("A9'", 0, 2, {
     type: "implication",
     left: {
       type: "C",
@@ -56,7 +56,7 @@ const systemKEC = [
     },
   }),
   // A10: Induction for common knowledge
-  new Justification("A10", 0, 1, {
+  new Rule("A10", 0, 1, {
     type: "implication",
     left: {
       type: "C",
@@ -79,7 +79,7 @@ const systemKEC = [
     },
   }),
   // Necessitation of common knowledge
-  new Justification(
+  new Rule(
     "R3",
     0,
     1,
