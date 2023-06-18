@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import { Form, InputGroup } from "react-bootstrap";
 
-import systemPA from "../data/SystemPA";
-import shortcuts from "../data/Shortcuts";
 import { check, noHoles } from "../utils/Engine";
 import { Tree, nodeIndex } from "../utils/Tree";
 
@@ -10,18 +8,19 @@ RuleSelect.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   root: PropTypes.instanceOf(Tree).isRequired,
   setRoot: PropTypes.func.isRequired,
+  system: PropTypes.array.isRequired,
 };
 
-function RuleSelect({ node, root, setRoot }) {
+function RuleSelect({ node, root, setRoot, system }) {
+  const ruleList = system.filter((rule) => check(node.formula, rule));
+
   function handleSelect(target) {
     // rules are always valid when selected
     target.setCustomValidity("");
 
     // find the selected rule
     const ruleName = target.value;
-    const rule = systemPA
-      .concat(shortcuts)
-      .find((rule) => rule.name === ruleName);
+    const rule = system.find((rule) => rule.name === ruleName);
 
     // update data model of the proof tree
     if (rule.premises.length > 0) {
@@ -45,7 +44,7 @@ function RuleSelect({ node, root, setRoot }) {
         <Form.Select
           onChange={(event) => handleSelect(event.target)}
           value={node.rule}
-          disabled={node.ruleList.length === 0}
+          disabled={ruleList.length === 0}
           style={
             node.children.length > 0 ? { width: "7em" } : { width: "11em" }
           }
@@ -53,7 +52,7 @@ function RuleSelect({ node, root, setRoot }) {
           <option disabled value={0}>
             Rule
           </option>
-          {node.ruleList.map((rule) => (
+          {ruleList.map((rule) => (
             <option key={rule.name}>{rule.name}</option>
           ))}
         </Form.Select>

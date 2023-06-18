@@ -20,11 +20,11 @@ function GoalInput({ setRoot }) {
       try {
         // if the formula is well-formed, remove the error message
         target.setCustomValidity("");
-        return root.setValue(parse(target.value));
+        return root.setFormula(parse(target.value));
       } catch (e) {
         // if the formula is not well-formed, show the error message
         target.setCustomValidity("This formula is not well-formed");
-        return root.setValue({ type: "hole" });
+        return root.setFormula({ type: "hole" });
       }
     });
   }

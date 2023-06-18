@@ -10,9 +10,10 @@ ProofLine.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   root: PropTypes.instanceOf(Tree).isRequired,
   setRoot: PropTypes.func.isRequired,
+  system: PropTypes.array.isRequired,
 };
 
-function ProofLine({ node, root, setRoot }) {
+function ProofLine({ node, root, setRoot, system }) {
   return (
     <>
       <Collapse in={true} appear>
@@ -24,7 +25,7 @@ function ProofLine({ node, root, setRoot }) {
                 {nodeIndex(root, node)}&emsp;⊢&ensp;{pretty(node.formula)}
               </Navbar.Brand>
             </Container>
-            <RuleSelect {...{ node, root, setRoot }} />
+            <RuleSelect {...{ node, root, setRoot, system }} />
           </Navbar>
         </div>
       </Collapse>

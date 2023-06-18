@@ -1,24 +1,37 @@
 import { v4 } from "uuid";
-
-import systemPA from "../data/SystemPA";
-import shortcuts from "../data/Shortcuts";
-import { check, noHoles } from "../utils/Engine";
+import { noHoles } from "../utils/Engine";
 
 export class Tree {
   constructor(formula, rule = 0, validated = false, children = []) {
     this.id = v4();
     this.formula = formula;
     this.rule = rule;
-    this.ruleList = systemPA.concat(shortcuts).filter((rule) => check(formula, rule));
     this.validated = validated;
     this.children = children;
     this.inputEnabled = this.children.some((child) => !noHoles(child.formula));
+  }
+
+  setFormula(formula) {
+    const root = new Tree(formula);
+    root.id = this.id;
+    return root;
   }
 
   toArray() {
     const arr = this.children.map((c) => c.toArray()).flat();
     arr.push(this);
     return arr;
+  }
+
+  copy() {
+    const tree = new Tree(
+      this.formula,
+      this.rule,
+      this.validated,
+      this.children
+    );
+    tree.id = this.id;
+    return tree;
   }
 
   update(node, rule, validated, children) {
@@ -31,15 +44,7 @@ export class Tree {
         c.update(node, rule, validated, children)
       );
     }
-    const root = new Tree(this.formula, this.rule, this.validated, this.children);
-    root.id = this.id;
-    return root;
-  }
-
-  setValue(formula) {
-    const root = new Tree(formula);
-    root.id = this.id;
-    return root;
+    return this.copy();
   }
 }
 

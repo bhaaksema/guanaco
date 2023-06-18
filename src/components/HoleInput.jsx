@@ -34,7 +34,7 @@ function HoleInput({ node, setRoot }) {
     const hole = handleTyping(input.current);
     if (hole) {
       node.children = node.children.map((child) =>
-        child.setValue(fill(child.formula, hole))
+        child.setFormula(fill(child.formula, hole))
       );
     }
     setRoot((root) => root.update(node, node.rule, true, node.children));
