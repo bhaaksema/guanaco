@@ -9,9 +9,9 @@ import shortcuts from "./Shortcuts";
 const systems = {
   K: systemK,
   S5: systemS5,
-  PA: systemPA,
   KEC: systemKEC,
   S5EC: systemS5EC,
+  PA: systemPA,
   PAC: systemPAC,
 };
 
