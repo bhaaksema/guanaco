@@ -107,7 +107,7 @@ class FormulaParser extends EmbeddedActionsParser {
       return { type: "K", agent, value };
     });
 
-    // atom ::= proposition | variable
+    // atom ::= proposition | variable | bottom
     this.RULE("atom", () => {
       return this.OR([
         {

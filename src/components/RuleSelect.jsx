@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Form, InputGroup } from "react-bootstrap";
 
-import { check, noHoles } from "../utils/Engine";
+import { noHoles } from "../utils/Engine";
 import { Tree, nodeIndex } from "../utils/Tree";
 
 RuleSelect.propTypes = {
@@ -12,7 +12,7 @@ RuleSelect.propTypes = {
 };
 
 function RuleSelect({ node, root, setRoot, system }) {
-  const ruleList = system.filter((rule) => check(node.formula, rule));
+  const ruleList = system.filter((rule) => rule.check(node.formula));
 
   function handleSelect(target) {
     // rules are always valid when selected
@@ -25,7 +25,7 @@ function RuleSelect({ node, root, setRoot, system }) {
     // update data model of the proof tree
     if (rule.premises.length > 0) {
       // rule is not an axiom, obtain premises
-      const premises = check(node.formula, rule);
+      const premises = rule.check(node.formula);
       // generate children nodes from premises
       const children = premises.map((premise) => new Tree(premise));
       // validate the node if there are no holes or if there is only one premise
