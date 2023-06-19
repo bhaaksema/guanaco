@@ -270,8 +270,24 @@ const shortcuts = [
       },
     ]
   ),
-  // TODO: Substitution
-
+  // Substitution
+  new Rule(
+    "SUB",
+    0,
+    2,
+    {
+      type: "equivalence",
+      left: { type: "hole", hole: 0 },
+      right: { type: "hole", hole: 1 },
+    },
+    [
+      {
+        type: "equivalence",
+        left: { type: "hole", hole: 0 },
+        right: { type: "hole", hole: 1 },
+      },
+    ]
+  ),
   // No contradiction 2
   new Rule(
     "NC'",

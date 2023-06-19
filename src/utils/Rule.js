@@ -1,4 +1,4 @@
-import { noHoles, checkFormula, initPremise } from "./Engine";
+import { noHoles, checkFormula, initPremise, diff } from "./Engine";
 
 class Rule {
   constructor(
@@ -34,7 +34,14 @@ class Rule {
     if (this.premises.length === 0) return result;
 
     // if result is false, return it
-    if (!result) return false;
+    if (!result) return result;
+
+    // substitution is a special case
+    if (this.name === "SUB") {
+      const res = diff(formula.left, formula.right);
+      // if no difference, return the formula
+      return [res ? res : formula];
+    }
 
     // if rule is not axiom, init premises
     return this.premises.map((premise) =>

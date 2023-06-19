@@ -162,3 +162,37 @@ export function fill(formula, hole) {
       throw new Error("Invalid formula: " + formula.type);
   }
 }
+
+export function diff(left, right) {
+  if (left.type !== right.type) return { type: "equivalence", left, right };
+
+  let resLeft, resRight;
+  switch (left.type) {
+    case "conjunction":
+    case "disjunction":
+    case "implication":
+    case "equivalence":
+    case "announcement":
+      resLeft = diff(left.left, right.left);
+      resRight = diff(left.right, right.right);
+      if (resLeft && resRight) return { type: left.type, left, right };
+      return resLeft ? resLeft : resRight;
+    case "negation":
+    case "E":
+    case "C":
+      return diff(left.value, right.value);
+    case "K":
+      if (left.agent !== right.agent)
+        return { type: "equivalence", left, right };
+      return diff(left.value, right.value);
+    case "proposition":
+    case "formula":
+      return left.value === right.value
+        ? null
+        : { type: "equivalence", left, right };
+    case "bottom":
+      return null;
+    default:
+      throw new Error("Invalid formula: " + left.type);
+  }
+}
