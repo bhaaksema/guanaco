@@ -4,7 +4,7 @@ import systemS5 from "./SystemS5";
 const systemPA = [
   ...systemS5,
   // A11: Atomic permanence
-  // [f] -> p <-> (f -> p)
+  // [f] p <-> (f -> p)
   new Rule(
     "A11",
     0,

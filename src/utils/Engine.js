@@ -55,7 +55,7 @@ export function checkFormula(formula, ref, agents, holes, propositions) {
       if (propositions[ref.proposition] === undefined)
         propositions[ref.proposition] = formula;
       return [
-        propositions[ref.proposition] === formula,
+        equal(propositions[ref.proposition], formula),
         agents,
         holes,
         propositions,
