@@ -7,8 +7,10 @@ import systemPAC from "../data/SystemPAC";
 import shortcuts from "../data/Shortcuts";
 import shortcutsEC from "../data/ShortcutsEC";
 
+const common = ["KEC", "S5EC", "PAC"];
+
 const systems = (m) => {
-  return {
+  const res = {
     K: systemK,
     S5: systemS5,
     KEC: systemKEC(m),
@@ -16,15 +18,15 @@ const systems = (m) => {
     PA: systemPA,
     PAC: systemPAC(m),
   };
+
+  for (const sys in res) {
+    res[sys] = res[sys]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .concat(shortcuts);
+    if (common.includes(sys)) res[sys] = res[sys].concat(shortcutsEC);
+  }
+
+  return res
 };
-
-const common = ["KEC", "S5EC", "PAC"];
-
-for (const sys in systems) {
-  systems[sys] = systems[sys]
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .concat(shortcuts);
-  if (common.includes(sys)) systems[sys] = systems[sys].concat(shortcutsEC);
-}
 
 export default systems;
