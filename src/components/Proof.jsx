@@ -9,9 +9,9 @@ import GoalInput from "./GoalInput";
 function Proof() {
   const [root, setRoot] = useState(new Tree({ type: "hole" }));
   const [system, setSystem] = useState({
-    name: "PAC",
-    agents: 2,
-    rules: systems(2)["PAC"],
+    name: "K",
+    agents: NaN,
+    rules: systems(NaN)["K"],
   });
 
   function handleSelect(value) {
@@ -26,7 +26,8 @@ function Proof() {
   }
 
   function handleInput(value) {
-    const m = parseInt(value, 10);
+    let m = parseInt(value, 10);
+    m = m < 1 ? 1 : m;
     // update the system
     setSystem({
       name: system.name,
@@ -77,6 +78,7 @@ function Proof() {
             min="1"
             value={isNaN(system.agents) ? "" : system.agents}
             onChange={(event) => handleInput(event.target.value)}
+            placeholder="(m)"
           />
         </InputGroup>
         <GoalInput {...{ setRoot }} />
