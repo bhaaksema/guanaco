@@ -22,10 +22,11 @@ class Rule {
     if (!noHoles(formula)) return false;
 
     // check formula against rule conclusion
+    const agentArr = Array(this.agents);
     let [result, agents, holes, propositions] = checkFormula(
       formula,
       this.conclusion,
-      new Array(this.agents),
+      this.name === "A6" ? [...agentArr.keys()].map((i) => ++i) : agentArr,
       new Array(this.holes),
       new Array(this.propositions)
     );

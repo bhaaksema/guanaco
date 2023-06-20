@@ -72,6 +72,7 @@ class FormulaParser extends EmbeddedActionsParser {
 
     // unary ::= ( ! | E | C | [ subformula ] ) subformula
     this.RULE("unary", () => {
+      let left
       const type = this.OR([
         {
           ALT: () => {
@@ -84,25 +85,24 @@ class FormulaParser extends EmbeddedActionsParser {
         {
           ALT: () => {
             this.CONSUME(tokens.LSay);
+            left = this.SUBRULE(this.subformula);
+            this.CONSUME(tokens.RSay);
             return "announcement";
           },
         },
       ]);
 
-      if (type === "announcement") {
-        const left = this.SUBRULE(this.subformula);
-        this.CONSUME(tokens.RSay);
-        const right = this.SUBRULE1(this.subformula);
-        return { type, left, right };
-      }
-
-      return { type: type, value: this.SUBRULE(this.subformula) };
+      const right = this.SUBRULE1(this.subformula);
+      if (type === "announcement") return { type, left, right };
+      return { type: type, value: right };
     });
 
     // knowledge ::= K agent subformula
     this.RULE("knowledge", () => {
       this.CONSUME(tokens.K);
-      const agent = this.CONSUME(tokens.Agent).image;
+      const agentImage = this.CONSUME(tokens.Agent).image
+      const agentVal = parseInt(agentImage, 10);
+      const agent = (isNaN(agentVal) ? agentImage : agentVal)
       const value = this.SUBRULE(this.subformula);
       return { type: "K", agent, value };
     });

@@ -2,9 +2,9 @@ import Rule from "../utils/Rule";
 import systemK from "./SystemK";
 
 const systemKEC = (m) => {
-  const system = systemK;
+  let system = systemK;
   if (!isNaN(m) && m > 0)
-    system.concat([
+    system = system.concat([
       // A6: Definition of E
       new Rule("A6", m, 1, {
         type: "equivalence",

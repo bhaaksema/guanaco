@@ -65,7 +65,7 @@ function Proof() {
           <InputGroup.Text>System</InputGroup.Text>
           <Form.Select
             onChange={(event) => handleSelect(event.target.value)}
-            defaultValue={system.name}
+            value={system.name}
           >
             {Object.keys(systems(system.agents)).map((key) => (
               <option key={key}>{key}</option>
@@ -75,7 +75,7 @@ function Proof() {
           <Form.Control
             type="number"
             min="1"
-            defaultValue={system.agents}
+            value={isNaN(system.agents) ? "" : system.agents}
             onChange={(event) => handleInput(event.target.value)}
           />
         </InputGroup>
