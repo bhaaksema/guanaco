@@ -8,11 +8,11 @@ RuleSelect.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   root: PropTypes.instanceOf(Tree).isRequired,
   setRoot: PropTypes.func.isRequired,
-  system: PropTypes.array.isRequired,
+  system: PropTypes.object.isRequired,
 };
 
 function RuleSelect({ node, root, setRoot, system }) {
-  const ruleList = system.filter((rule) => rule.check(node.formula));
+  const ruleList = system.rules.filter((rule) => rule.check(node.formula));
 
   function handleSelect(target) {
     // rules are always valid when selected
@@ -20,7 +20,7 @@ function RuleSelect({ node, root, setRoot, system }) {
 
     // find the selected rule
     const ruleName = target.value;
-    const rule = system.find((rule) => rule.name === ruleName);
+    const rule = ruleList.find((rule) => rule.name === ruleName);
 
     // update data model of the proof tree
     if (rule.premises.length > 0) {

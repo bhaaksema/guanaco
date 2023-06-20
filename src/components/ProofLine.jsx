@@ -10,7 +10,7 @@ ProofLine.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   root: PropTypes.instanceOf(Tree).isRequired,
   setRoot: PropTypes.func.isRequired,
-  system: PropTypes.array.isRequired,
+  system: PropTypes.object.isRequired,
 };
 
 function ProofLine({ node, root, setRoot, system }) {

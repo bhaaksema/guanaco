@@ -2,8 +2,8 @@ import Rule from "../utils/Rule";
 import systemS5EC from "./SystemS5EC";
 import systemPA from "./SystemPA";
 
-const systemPAC = [
-  ...new Set([...systemS5EC, ...systemPA]),
+const systemPAC = (m) => [
+  ...new Set([...systemS5EC(m), ...systemPA]),
   // R4: Necessitation of announcements
   new Rule(
     "R4",

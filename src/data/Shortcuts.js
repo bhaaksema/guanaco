@@ -282,9 +282,7 @@ const shortcuts = [
     },
     [
       {
-        type: "equivalence",
-        left: { type: "hole", hole: 0 },
-        right: { type: "hole", hole: 1 },
+        // Custom premise, see src/utils/Rule.js
       },
     ]
   ),

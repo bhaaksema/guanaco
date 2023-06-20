@@ -1,19 +1,38 @@
 import { useState } from "react";
 import { Card, Form, InputGroup } from "react-bootstrap";
 
-import systems from "../data/Systems";
+import systems from "../utils/Systems";
 import { Tree } from "../utils/Tree";
 import ProofLine from "./ProofLine";
 import GoalInput from "./GoalInput";
 
 function Proof() {
   const [root, setRoot] = useState(new Tree({ type: "hole" }));
-  const [system, setSystem] = useState(systems["PA"]);
-  const [agents, setAgents] = useState(3);
+  const [system, setSystem] = useState({
+    name: "PAC",
+    agents: 2,
+    rules: systems(2)["PAC"],
+  });
 
-  function handleSelect(event) {
+  function handleSelect(value) {
     // update the system
-    setSystem(systems[event.target.value]);
+    setSystem({
+      name: value,
+      agents: system.agents,
+      rules: systems(system.agents)[value],
+    });
+    // reset the proof tree
+    setRoot(root.setFormula(root.formula));
+  }
+
+  function handleInput(value) {
+    const m = parseInt(value, 10);
+    // update the system
+    setSystem({
+      name: system.name,
+      agents: m,
+      rules: systems(m)[system.name],
+    });
     // reset the proof tree
     setRoot(root.setFormula(root.formula));
   }
@@ -42,30 +61,23 @@ function Proof() {
         ))}
       </Card.Body>
       <Card.Footer>
-        <InputGroup style={{ width: "10em" }}>
+        <InputGroup style={{ width: "20em" }}>
           <InputGroup.Text>System</InputGroup.Text>
           <Form.Select
-            onChange={handleSelect}
-            // className="w-50"
-            defaultValue="PA"
+            onChange={(event) => handleSelect(event.target.value)}
+            defaultValue={system.name}
           >
-            {Object.keys(systems).map((key) => (
+            {Object.keys(systems(system.agents)).map((key) => (
               <option key={key}>{key}</option>
             ))}
           </Form.Select>
-          {false &&
-            (system === systems["KEC"] || system === systems["S5EC"]) && (
-              <>
-                <InputGroup.Text>Agents</InputGroup.Text>
-                <Form.Control
-                  className="w-25"
-                  type="number"
-                  min="1"
-                  defaultValue={agents}
-                  onChange={(event) => setAgents(event.target.value)}
-                />
-              </>
-            )}
+          <InputGroup.Text>Agents</InputGroup.Text>
+          <Form.Control
+            type="number"
+            min="1"
+            defaultValue={system.agents}
+            onChange={(event) => handleInput(event.target.value)}
+          />
         </InputGroup>
         <GoalInput {...{ setRoot }} />
       </Card.Footer>
