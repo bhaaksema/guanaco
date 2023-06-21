@@ -60,6 +60,7 @@ export function checkFormula(formula, ref, agents, holes, propositions) {
         holes,
         propositions,
       ];
+    case "top":
     case "bottom":
       return [true, agents, holes, propositions];
     default:
@@ -96,6 +97,7 @@ export function initPremise(premise, agents, holes, propositions) {
       };
     case "proposition":
       return propositions[premise.proposition];
+    case "top":
     case "bottom":
       return premise;
     default:
@@ -120,6 +122,7 @@ export function noHoles(formula) {
       return noHoles(formula.value);
     case "proposition":
     case "formula":
+    case "top":
     case "bottom":
       return true;
     default:
@@ -156,6 +159,7 @@ export function fill(formula, hole) {
       };
     case "proposition":
     case "formula":
+    case "top":
     case "bottom":
       return formula;
     default:
@@ -190,6 +194,7 @@ export function diff(left, right) {
       return left.value === right.value
         ? null
         : { type: "equivalence", left, right };
+    case "top":
     case "bottom":
       return null;
     default:

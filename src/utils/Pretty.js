@@ -1,3 +1,5 @@
+const un = { K: "K", E: "E", C: "C" };
+
 const bin = {
   conjunction: "∧",
   disjunction: "∨",
@@ -5,19 +7,16 @@ const bin = {
   equivalence: "↔",
 };
 
-const un = { negation: "¬", K: "K", E: "E", C: "C" };
-
+/** Pretty-print a formula */
 function pretty(formula, top = true) {
   switch (formula.type) {
-    case "hole":
-      return "?";
     case "conjunction":
     case "disjunction":
     case "implication":
     case "equivalence":
       return binary(top, formula);
     case "negation":
-      return `${un[formula.type]}${pretty(formula.value, false)}`;
+      return `¬${pretty(formula.value, false)}`;
     case "E":
     case "C":
       return `${un[formula.type]} ${pretty(formula.value, false)}`;
@@ -28,13 +27,18 @@ function pretty(formula, top = true) {
     case "proposition":
     case "formula":
       return formula.value;
+    case "top":
+      return "⊤";
     case "bottom":
       return "⊥";
+    case "hole":
+      return "?";
     default:
       throw new Error(`Unknown formula type: ${formula.type}`);
   }
 }
 
+/** Pretty-print a binary formula */
 function binary(top, formula) {
   const left = pretty(formula.left, false);
   const right = pretty(formula.right, false);
@@ -42,6 +46,7 @@ function binary(top, formula) {
   return top ? `${left} ${op} ${right}` : `(${left} ${op} ${right})`;
 }
 
+/** Pretty-print a knowledge formula */
 function knowledge(formula) {
   const subformula = pretty(formula.value, false);
   return `${un[formula.type]}${formula.agent} ${subformula}`;
