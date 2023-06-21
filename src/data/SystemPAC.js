@@ -44,15 +44,15 @@ const systemPAC = (m) => [
         },
       },
       {
-        type: "conjunction",
-        left: { type: "hole", hole: 2 },
+        type: "implication",
+        left: {
+          type: "conjunction",
+          left: { type: "hole", hole: 2 },
+          right: { type: "hole", hole: 0 },
+        },
         right: {
-          type: "implication",
-          left: { type: "hole", hole: 0 },
-          right: {
-            type: "E",
-            value: { type: "hole", hole: 2 },
-          },
+          type: "E",
+          value: { type: "hole", hole: 2 },
         },
       },
     ]
