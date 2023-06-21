@@ -4,7 +4,7 @@ import { Button, Collapse, Form, InputGroup } from "react-bootstrap";
 
 import { Tree } from "../utils/Tree";
 import { fill } from "../utils/Formula";
-import parse from "../utils/Parser";
+import { parse } from "../utils/Parser";
 
 HoleInput.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,

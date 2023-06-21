@@ -24,8 +24,8 @@ let tokensByPriority = [
   createToken({ name: "RSay", pattern: /]/ }),
 
   // Variables and constants
-  createToken({ name: "Top", pattern: /1/ }),
-  createToken({ name: "Bottom", pattern: /0/ }),
+  createToken({ name: "Top", pattern: /T/ }),
+  createToken({ name: "Bottom", pattern: /F/ }),
   createToken({ name: "Proposition", pattern: /(p|q|r|s)(0|[1-9]\d*)?/ }),
   createToken({ name: "Formula", pattern: /(f|g|h)(0|[1-9]\d*)?/ }),
   createToken({ name: "Agent", pattern: /[1-9]\d*|a(0|[1-9]\d*)?/ }),

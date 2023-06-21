@@ -147,7 +147,7 @@ class FormulaParser extends EmbeddedActionsParser {
 }
 
 /** Constant reuseable parser instance */
-const parser = new FormulaParser();
+export const parser = new FormulaParser();
 
 /**
  * Parses the input text.
@@ -156,7 +156,7 @@ const parser = new FormulaParser();
  * @throws {Error} - If there are any parsing errors.
  * @see {@link https://chevrotain.io/docs/tutorial/step2_parsing.html}
  */
-function parse(inputText) {
+export function parse(inputText) {
   // Set parser input to the tokenized inputText
   parser.input = lex(inputText).tokens;
 
@@ -171,6 +171,3 @@ function parse(inputText) {
   // Otherwise, return the AST
   return ast;
 }
-
-// Export the parse function
-export default parse;

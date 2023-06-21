@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 
-import parse from "../utils/Parser";
+import { parse } from "../utils/Parser";
 
 GoalInput.propTypes = {
   setRoot: PropTypes.func.isRequired,
