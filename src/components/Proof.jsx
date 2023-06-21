@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Card, Form, InputGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 import systems from "../utils/Systems";
 import { Tree } from "../utils/Tree";
 import ProofLine from "./ProofLine";
+import SystemSelect from "./SystemSelect";
 import GoalInput from "./GoalInput";
 
 function Proof() {
@@ -15,40 +16,6 @@ function Proof() {
     agents: NaN,
     rules: systems(NaN)["K"],
   });
-
-  /**
-   * Handle the user selecting a system.
-   * @param {string} value - The name of the system.
-   * @returns {void}
-   */
-  function handleSelect(value) {
-    // update the system
-    setSystem({
-      name: value,
-      agents: system.agents,
-      rules: systems(system.agents)[value],
-    });
-    // reset the proof tree
-    setRoot(root.setFormula(root.formula));
-  }
-
-  /**
-   * Handle the user entering the number of agents.
-   * @param {string} value - The number of agents.
-   * @returns {void}
-   */
-  function handleInput(value) {
-    let m = parseInt(value, 10);
-    m = m < 1 ? 1 : m;
-    // update the system
-    setSystem({
-      name: system.name,
-      agents: m,
-      rules: systems(m)[system.name],
-    });
-    // reset the proof tree
-    setRoot(root.setFormula(root.formula));
-  }
 
   /**
    * Render the Proof component.
@@ -76,25 +43,7 @@ function Proof() {
         ))}
       </Card.Body>
       <Card.Footer>
-        <InputGroup style={{ width: "20em" }}>
-          <InputGroup.Text>System</InputGroup.Text>
-          <Form.Select
-            onChange={(event) => handleSelect(event.target.value)}
-            value={system.name}
-          >
-            {Object.keys(systems(system.agents)).map((key) => (
-              <option key={key}>{key}</option>
-            ))}
-          </Form.Select>
-          <InputGroup.Text>Agents</InputGroup.Text>
-          <Form.Control
-            type="number"
-            min="1"
-            value={isNaN(system.agents) ? "" : system.agents}
-            onChange={(event) => handleInput(event.target.value)}
-            placeholder="(m)"
-          />
-        </InputGroup>
+        <SystemSelect {...{ root, setRoot, system, setSystem }} />
         <GoalInput {...{ setRoot }} />
       </Card.Footer>
     </Card>
