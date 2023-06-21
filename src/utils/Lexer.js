@@ -27,8 +27,8 @@ let tokensByPriority = [
   createToken({ name: "Top", pattern: /T/ }),
   createToken({ name: "Bottom", pattern: /F/ }),
   createToken({ name: "Proposition", pattern: /(p|q|r|s)(0|[1-9]\d*)?/ }),
-  createToken({ name: "Formula", pattern: /(f|g|h)(0|[1-9]\d*)?/ }),
-  createToken({ name: "Agent", pattern: /[1-9]\d*|a(0|[1-9]\d*)?/ }),
+  createToken({ name: "Variable", pattern: /(f|g|h)(0|[1-9]\d*)?/ }),
+  createToken({ name: "Agent", pattern: /[1-9]\d*|(a|i|j)(0|[1-9]\d*)?/ }),
 ];
 
 /** Constant reuseable lexer instance */

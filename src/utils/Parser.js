@@ -11,7 +11,7 @@ class FormulaParser extends EmbeddedActionsParser {
   constructor() {
     super(tokens);
 
-    // formula ::= binary | unary | knowledge | atom
+    // formula ::= binary | unary | atom
     this.RULE("formula", () => {
       return this.OR([
         {
@@ -19,12 +19,11 @@ class FormulaParser extends EmbeddedActionsParser {
           ALT: () => { return this.SUBRULE(this.binary); },
         },
         { ALT: () => { return this.SUBRULE(this.unary); }, },
-        { ALT: () => { return this.SUBRULE(this.knowledge); }, },
         { ALT: () => { return this.SUBRULE(this.atom); }, },
       ]);
     });
 
-    // subformula ::= ( binary ) | unary | knowledge | atom
+    // subformula ::= ( binary ) | unary | atom
     this.RULE("subformula", () => {
       return this.OR([
         {
@@ -36,7 +35,6 @@ class FormulaParser extends EmbeddedActionsParser {
           },
         },
         { ALT: () => { return this.SUBRULE(this.unary); }, },
-        { ALT: () => { return this.SUBRULE(this.knowledge); }, },
         { ALT: () => { return this.SUBRULE(this.atom); }, },
       ]);
     });
@@ -75,14 +73,23 @@ class FormulaParser extends EmbeddedActionsParser {
       return { type, left, right };
     });
 
-    // unary ::= ( ! | E | C | [ subformula ] ) subformula
+    // unary ::= ( ! | K agent subformula | E | C | [ subformula ] ) subformula
     this.RULE("unary", () => {
-      let left;
+      let left, agent;
       const type = this.OR([
         {
           ALT: () => {
             this.CONSUME(tokens.Not);
             return "negation";
+          },
+        },
+        {
+          ALT: () => {
+            const type = this.CONSUME(tokens.K).tokenType.name;
+            const agentImage = this.CONSUME(tokens.Agent).image;
+            const agentVal = parseInt(agentImage, 10);
+            agent = isNaN(agentVal) ? agentImage : agentVal;
+            return type;
           },
         },
         { ALT: () => { return this.CONSUME(tokens.E).tokenType.name; }, },
@@ -98,18 +105,9 @@ class FormulaParser extends EmbeddedActionsParser {
       ]);
 
       const right = this.SUBRULE1(this.subformula);
+      if (type === "K") return { type: type, agent: agent, value: right };
       if (type === "announcement") return { type, left, right };
       return { type: type, value: right };
-    });
-
-    // knowledge ::= K agent subformula
-    this.RULE("knowledge", () => {
-      this.CONSUME(tokens.K);
-      const agentImage = this.CONSUME(tokens.Agent).image;
-      const agentVal = parseInt(agentImage, 10);
-      const agent = isNaN(agentVal) ? agentImage : agentVal;
-      const value = this.SUBRULE(this.subformula);
-      return { type: "K", agent, value };
     });
 
     // atom ::= proposition | variable | top | bottom
@@ -123,8 +121,8 @@ class FormulaParser extends EmbeddedActionsParser {
         },
         {
           ALT: () => {
-            const value = this.CONSUME(tokens.Formula).image;
-            return { type: "formula", value: value };
+            const value = this.CONSUME(tokens.Variable).image;
+            return { type: "variable", value: value };
           },
         },
         {

@@ -147,7 +147,7 @@ export function noHoles(formula) {
     case "C":
       return noHoles(formula.value);
     case "proposition":
-    case "formula":
+    case "variable":
     case "top":
     case "bottom":
       return true;
@@ -191,7 +191,7 @@ export function fill(formula, hole) {
         value: fill(formula.value, hole),
       };
     case "proposition":
-    case "formula":
+    case "variable":
     case "top":
     case "bottom":
       return formula;
@@ -230,7 +230,7 @@ export function diff(left, right) {
         return { type: "equivalence", left, right };
       return diff(left.value, right.value);
     case "proposition":
-    case "formula":
+    case "variable":
       return left.value === right.value
         ? null
         : { type: "equivalence", left, right };

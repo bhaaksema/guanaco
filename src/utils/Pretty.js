@@ -22,7 +22,7 @@ function pretty(formula, top = true) {
     case "announcement":
       return `[${pretty(formula.left, false)}] ${pretty(formula.right, false)}`;
     case "proposition":
-    case "formula":
+    case "variable":
       return formula.value;
     case "top":
       return "⊤";
