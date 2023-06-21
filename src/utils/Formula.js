@@ -1,5 +1,15 @@
 import equal from "fast-deep-equal";
 
+/**
+ * Checks if a formula corresponds to a given reference formula.
+ * @param {Object} formula - The formula to check.
+ * @param {Object} ref - The reference formula.
+ * @param {Object} agents - The agents that have been assigned.
+ * @param {Object} holes - The holes that have been assigned.
+ * @param {Object} propositions - The propositions that have been assigned.
+ * @returns {Array} - Tuple containing boolean result and the assigned agents, holes and propositions.
+ * @throws {Error} - If the reference formula is invalid.
+ */
 export function checkFormula(formula, ref, agents, holes, propositions) {
   if (ref.type === "hole") {
     if (holes[ref.hole] === undefined) holes[ref.hole] = formula;
@@ -68,6 +78,15 @@ export function checkFormula(formula, ref, agents, holes, propositions) {
   }
 }
 
+/**
+ * Initializes a premise by replacing holes with the assigned values.
+ * @param {Object} premise - The formula to initialize.
+ * @param {Object} agents - The agents that have been assigned.
+ * @param {Object} holes - The holes that have been assigned.
+ * @param {Object} propositions - The propositions that have been assigned.
+ * @returns {Object} - The initialized formula.
+ * @throws {Error} - If the formula type is invalid.
+ */
 export function initPremise(premise, agents, holes, propositions) {
   switch (premise.type) {
     case "hole":
@@ -105,6 +124,13 @@ export function initPremise(premise, agents, holes, propositions) {
   }
 }
 
+/**
+ * Checks if a formula is fully initialized.
+ * @param {Object} formula - The formula to check.
+ * @returns {boolean} - True if the formula is fully initialized, false otherwise.
+ * @throws {Error} - If the formula type is invalid.
+ * @see {@link initPremise}
+ */
 export function noHoles(formula) {
   switch (formula.type) {
     case "hole":
@@ -130,6 +156,13 @@ export function noHoles(formula) {
   }
 }
 
+/**
+ * Fills a formula with a given subformula.
+ * @param {Object} formula - The formula to fill.
+ * @param {Object} hole - The subformula to fill the formula with.
+ * @returns {Object} - The filled formula.
+ * @throws {Error} - If the formula type is invalid.
+ */
 export function fill(formula, hole) {
   switch (formula.type) {
     case "hole":
@@ -167,6 +200,13 @@ export function fill(formula, hole) {
   }
 }
 
+/**
+ * Finds the difference between two formulas.
+ * @param {Object} left - The first formula.
+ * @param {Object} right - The second formula.
+ * @returns {Object} - The difference between the two formulas.
+ * @throws {Error} - If the formula type is invalid.
+ */
 export function diff(left, right) {
   if (left.type !== right.type) return { type: "equivalence", left, right };
 

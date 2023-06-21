@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Form, InputGroup } from "react-bootstrap";
 
-import { noHoles } from "../utils/Engine";
+import { noHoles } from "../utils/Formula";
 import { Tree, nodeIndex } from "../utils/Tree";
 
 RuleSelect.propTypes = {
@@ -14,6 +14,11 @@ RuleSelect.propTypes = {
 function RuleSelect({ node, root, setRoot, system }) {
   const ruleList = system.rules.filter((rule) => rule.check(node.formula));
 
+  /**
+   * Handle the user selecting a rule.
+   * @param {EventTarget} target - The select field.
+   * @returns {void}
+   */
   function handleSelect(target) {
     // rules are always valid when selected
     target.setCustomValidity("");
@@ -38,6 +43,10 @@ function RuleSelect({ node, root, setRoot, system }) {
     }
   }
 
+  /**
+   * Render the RuleSelect component.
+   * @returns {JSX.Element}
+   */
   return (
     <Form validated={node.validated} className="d-flex">
       <InputGroup hasValidation>

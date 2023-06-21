@@ -1,6 +1,6 @@
 import { createToken, Lexer } from "chevrotain";
 
-// List of tokens, ordered by priority
+/** List of tokens, ordered by priority */
 let tokensByPriority = [
   // Whitespace (first increases lexer speed)
   createToken({ name: "WhiteSpace", pattern: /\s+/, group: Lexer.SKIPPED }),
@@ -31,7 +31,7 @@ let tokensByPriority = [
   createToken({ name: "Agent", pattern: /[1-9]\d*|a(0|[1-9]\d*)?/ }),
 ];
 
-// Constant reuseable lexer instance
+/** Constant reuseable lexer instance */
 const FormulaLexer = new Lexer(tokensByPriority, {
   ensureOptimizations: true,
 });
@@ -41,7 +41,13 @@ export const tokens = Object.fromEntries(
   tokensByPriority.map((token) => [token.name, token])
 );
 
-// Export lexing function
+/**
+ * Lexes the input text.
+ * @param {string} inputText - The input text.
+ * @returns {Object} - The lexing result.
+ * @throws {Error} - If there are any lexing errors.
+ * @see {@link https://chevrotain.io/docs/tutorial/step1_lexing.html}
+ */
 export function lex(inputText) {
   // Invoke lexer on input text
   const lexingResult = FormulaLexer.tokenize(inputText);

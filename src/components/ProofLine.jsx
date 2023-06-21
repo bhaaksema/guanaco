@@ -14,22 +14,25 @@ ProofLine.propTypes = {
 };
 
 function ProofLine({ node, root, setRoot, system }) {
+  /**
+   * Render the ProofLine component.
+   * @returns {JSX.Element}
+   */
   return (
-    <>
-      <Collapse in={true} appear>
-        <div>
-          <HoleInput {...{ node, setRoot }} />
-          <Navbar>
-            <Container className="border-bottom rounded" fluid>
-              <Navbar.Brand>
-                {nodeIndex(root, node)}&emsp;⊢&ensp;{pretty(node.formula)}
-              </Navbar.Brand>
-            </Container>
-            <RuleSelect {...{ node, root, setRoot, system }} />
-          </Navbar>
-        </div>
-      </Collapse>
-    </>
+    <Collapse in={true} appear>
+      {/* This div is necessary for smooth animation */}
+      <div>
+        <HoleInput {...{ node, setRoot }} />
+        <Navbar>
+          <Container className="border-bottom rounded" fluid>
+            <Navbar.Brand>
+              {nodeIndex(root, node)}&emsp;⊢&ensp;{pretty(node.formula)}
+            </Navbar.Brand>
+          </Container>
+          <RuleSelect {...{ node, root, setRoot, system }} />
+        </Navbar>
+      </div>
+    </Collapse>
   );
 }
 

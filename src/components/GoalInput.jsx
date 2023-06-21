@@ -11,6 +11,11 @@ GoalInput.propTypes = {
 function GoalInput({ setRoot }) {
   const [validated, setValidated] = useState(false);
 
+  /**
+   * Handle the user typing in the input field.
+   * @param {EventTarget} target - The input field.
+   * @returns {void}
+   */
   function handleTyping(target) {
     // enable validation if the user has typed something
     setValidated(target.value !== "");
@@ -29,6 +34,10 @@ function GoalInput({ setRoot }) {
     });
   }
 
+  /**
+   * Render the GoalInput component.
+   * @returns {JSX.Element}
+   */
   return (
     <Form noValidate validated={validated} className="my-2">
       <FloatingLabel label="Goal">

@@ -7,6 +7,8 @@ import ProofLine from "./ProofLine";
 import GoalInput from "./GoalInput";
 
 function Proof() {
+  const title = "A Syntactic Proof Guide for Epistemic Logic";
+  // initialize the proof tree and the system
   const [root, setRoot] = useState(new Tree({ type: "hole" }));
   const [system, setSystem] = useState({
     name: "K",
@@ -14,6 +16,11 @@ function Proof() {
     rules: systems(NaN)["K"],
   });
 
+  /**
+   * Handle the user selecting a system.
+   * @param {string} value - The name of the system.
+   * @returns {void}
+   */
   function handleSelect(value) {
     // update the system
     setSystem({
@@ -25,6 +32,11 @@ function Proof() {
     setRoot(root.setFormula(root.formula));
   }
 
+  /**
+   * Handle the user entering the number of agents.
+   * @param {string} value - The number of agents.
+   * @returns {void}
+   */
   function handleInput(value) {
     let m = parseInt(value, 10);
     m = m < 1 ? 1 : m;
@@ -38,12 +50,14 @@ function Proof() {
     setRoot(root.setFormula(root.formula));
   }
 
+  /**
+   * Render the Proof component.
+   * @returns {JSX.Element}
+   */
   return (
     <Card border="dark" className="mt-3 mb-1">
       <Card.Header>
-        <Card.Title as="h3">
-          A Syntactic Proof Guide for Epistemic Logic
-        </Card.Title>
+        <Card.Title as="h3">{title}</Card.Title>
         <Card.Text>
           The strategy that Guanaco employs is building proofs bottom-up. This
           means that users start with the formula that they wish to derive. If

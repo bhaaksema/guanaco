@@ -7,9 +7,12 @@ import systemPAC from "../data/SystemPAC";
 import shortcuts from "../data/Shortcuts";
 import shortcutsEC from "../data/ShortcutsEC";
 
-const common = ["KEC", "S5EC", "PAC"];
-
-const systems = (m) => {
+/**
+ * @param {number} m - The number of agents
+ * @returns {Object} - An object containing all systems
+ */
+function systems(m) {
+  const common = ["KEC", "S5EC", "PAC"];
   const res = {
     K: systemK,
     S5: systemS5,
@@ -19,14 +22,15 @@ const systems = (m) => {
     PAC: systemPAC(m),
   };
 
+  // sort systems alphabetically and add shortcuts
   for (const sys in res) {
     res[sys] = res[sys]
-      .sort((a, b) => a.name.localeCompare(b.name))
+      .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true }))
       .concat(shortcuts);
     if (common.includes(sys)) res[sys] = res[sys].concat(shortcutsEC);
   }
 
-  return res
-};
+  return res;
+}
 
 export default systems;

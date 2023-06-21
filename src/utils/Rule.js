@@ -1,5 +1,17 @@
-import { noHoles, checkFormula, initPremise, diff } from "./Engine";
+import { noHoles, checkFormula, initPremise, diff } from "./Formula";
 
+/**
+ * Class representing a rule
+ * @class
+ * @property {string} name - The name of the rule
+ * @property {number} agents - The number of agents in the rule
+ * @property {number} holes - The number of holes in the rule
+ * @property {number} propositions - The number of propositions in the rule
+ * @property {Object} conclusion - The conclusion of the rule
+ * @property {Array} premises - The premises of the rule
+ * @property {function} check - Checks if a formula is a valid conclusion of the rule
+ * @returns {Rule} - A rule
+ */
 class Rule {
   constructor(
     name,
@@ -17,6 +29,11 @@ class Rule {
     this.premises = premises;
   }
 
+  /**
+   * Checks if a formula is a valid conclusion of the rule
+   * @param {Object} formula - The formula to check
+   * @returns {boolean | Array} - False if formula not valid, otherwise an array of premises
+   */
   check(formula) {
     // if there are holes in formula, return false
     if (!noHoles(formula)) return false;

@@ -1,8 +1,13 @@
 import { EmbeddedActionsParser } from "chevrotain";
 import { tokens, lex } from "./Lexer.js";
 
-// Formula parser class
+/**
+ * A parser for Epistemic Logic formulas.
+ * @see {@link https://chevrotain.io/docs/tutorial/step3b_adding_actions_embedded.html}
+ * @see {@link https://chevrotain.io/docs/features/backtracking.html}
+ */
 class FormulaParser extends EmbeddedActionsParser {
+  // prettier-ignore
   constructor() {
     super(tokens);
 
@@ -141,10 +146,16 @@ class FormulaParser extends EmbeddedActionsParser {
   }
 }
 
-// Constant reuseable parser instance
+/** Constant reuseable parser instance */
 const parser = new FormulaParser();
 
-// Parsing function that returns an Abstract Syntax Tree
+/**
+ * Parses the input text.
+ * @param {string} inputText - The input text.
+ * @returns {Object} - The Abstract Syntax Tree.
+ * @throws {Error} - If there are any parsing errors.
+ * @see {@link https://chevrotain.io/docs/tutorial/step2_parsing.html}
+ */
 function parse(inputText) {
   // Set parser input to the tokenized inputText
   parser.input = lex(inputText).tokens;

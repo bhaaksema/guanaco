@@ -5,7 +5,12 @@ import Proof from "./components/Proof";
 export default function App() {
   const maintainer = "https://github.com/bhaaksema";
   const documentation = "https://bhaaksema.github.io/guanaco-doc/";
+  const syntax = "https://bhaaksema.github.io/guanaco-doc/#implementation";
 
+  /**
+   * Render the App component.
+   * @returns {JSX.Element}
+   */
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="sm">
@@ -16,6 +21,9 @@ export default function App() {
             <Nav className="me-auto">
               <Nav.Link href={documentation} target="_blank">
                 Documentation
+              </Nav.Link>
+              <Nav.Link href={syntax} target="_blank">
+                Syntax
               </Nav.Link>
             </Nav>
             <Nav className="justify-content-end">
