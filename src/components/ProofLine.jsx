@@ -21,13 +21,6 @@ function ProofLine({ node, root, setRoot, system }) {
     fontSize: "1.2em",
   };
 
-  /** @type {CSSProperties} */
-  const numbersStyle = {
-    width: "4em",
-    borderTopLeftRadius: "0",
-    borderBottomLeftRadius: "0",
-  };
-
   /**
    * Render the ProofLine component.
    * @returns {JSX.Element}
@@ -44,12 +37,14 @@ function ProofLine({ node, root, setRoot, system }) {
           >
             {nodeIndex(root, node)}&emsp;⊢&ensp;{pretty(node.formula)}
           </InputGroup.Text>
-          <RuleSelect {...{ node, setRoot, system }} />
-          {node.children.length > 0 && (
-            <InputGroup.Text style={numbersStyle}>
-              {node.children.map((c) => nodeIndex(root, c)).join(", ")}
-            </InputGroup.Text>
-          )}
+          <InputGroup style={{ width: "11em" }}>
+            <RuleSelect {...{ node, setRoot, system }} />
+            {node.children.length > 0 && (
+              <InputGroup.Text style={{ width: "4em" }}>
+                {node.children.map((c) => nodeIndex(root, c)).join(", ")}
+              </InputGroup.Text>
+            )}
+          </InputGroup>
         </Form>
       </div>
     </Collapse>

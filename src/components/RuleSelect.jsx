@@ -43,14 +43,10 @@ function RuleSelect({ node, setRoot, system }) {
   }
 
   /** @type {CSSProperties} */
-  const selectStyle =
-    node.children.length > 0
-      ? { width: "7em", borderRadius: "0" }
-      : {
-          width: "11em",
-          borderTopLeftRadius: "0",
-          borderBottomLeftRadius: "0",
-        };
+  const selectStyle = {
+    borderTopLeftRadius: "0",
+    borderBottomLeftRadius: "0",
+  };
 
   /**
    * Render the RuleSelect component.
@@ -58,10 +54,10 @@ function RuleSelect({ node, setRoot, system }) {
    */
   return (
     <Form.Select
-      onChange={(event) => handleSelect(event.target)}
       value={node.rule}
       disabled={ruleList.length === 0}
       style={selectStyle}
+      onChange={(event) => handleSelect(event.target)}
     >
       <option disabled value={0}>
         Rule
