@@ -1,17 +1,16 @@
 import PropTypes from "prop-types";
-import { Form, InputGroup } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 import { noHoles } from "../utils/Formula";
-import { Tree, nodeIndex } from "../utils/Tree";
+import { Tree } from "../utils/Tree";
 
 RuleSelect.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
-  root: PropTypes.instanceOf(Tree).isRequired,
   setRoot: PropTypes.func.isRequired,
   system: PropTypes.object.isRequired,
 };
 
-function RuleSelect({ node, root, setRoot, system }) {
+function RuleSelect({ node, setRoot, system }) {
   const ruleList = system.rules.filter((rule) => rule.check(node.formula));
 
   /**
@@ -48,30 +47,27 @@ function RuleSelect({ node, root, setRoot, system }) {
    * @returns {JSX.Element}
    */
   return (
-    <Form validated={node.validated} className="d-flex">
-      <InputGroup hasValidation>
-        <Form.Select
-          onChange={(event) => handleSelect(event.target)}
-          value={node.rule}
-          disabled={ruleList.length === 0}
-          style={
-            node.children.length > 0 ? { width: "7em" } : { width: "11em" }
-          }
-        >
-          <option disabled value={0}>
-            Rule
-          </option>
-          {ruleList.map((rule) => (
-            <option key={rule.name}>{rule.name}</option>
-          ))}
-        </Form.Select>
-      </InputGroup>
-      {node.children.length > 0 && (
-        <InputGroup.Text style={{ width: "4em" }}>
-          {node.children.map((c) => nodeIndex(root, c)).join(", ")}
-        </InputGroup.Text>
-      )}
-    </Form>
+    <Form.Select
+      onChange={(event) => handleSelect(event.target)}
+      value={node.rule}
+      disabled={ruleList.length === 0}
+      style={
+        node.children.length > 0
+          ? { width: "7em", borderRadius: "0" }
+          : {
+              width: "11em",
+              borderTopLeftRadius: "0",
+              borderBottomLeftRadius: "0",
+            }
+      }
+    >
+      <option disabled value={0}>
+        Rule
+      </option>
+      {ruleList.map((rule) => (
+        <option key={rule.name}>{rule.name}</option>
+      ))}
+    </Form.Select>
   );
 }
 

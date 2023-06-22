@@ -68,9 +68,10 @@ function HoleInput({ node, setRoot }) {
       unmountOnExit
       className="mt-1 m-3"
     >
+      {/* This div is necessary for smooth animation */}
       <div>
         <Form noValidate validated={node.validated} onSubmit={handleSubmit}>
-          <InputGroup>
+          <InputGroup hasValidation>
             <InputGroup.Text>? =</InputGroup.Text>
             <Form.Control
               placeholder="enter formula"

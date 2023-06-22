@@ -35,7 +35,7 @@ export default function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container className="d-flex justify-content-center">
+      <Container>
         <Proof />
       </Container>
     </>
