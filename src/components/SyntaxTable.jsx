@@ -21,8 +21,6 @@ function SyntaxTable() {
       { name: "Equivalence", input: "x <-> y", pretty: "x ↔ y" },
     ],
     [
-      { name: "Tautology", input: "T", pretty: "⊤" },
-      { name: "Contradiction", input: "F", pretty: "⊥" },
       {
         name: "Knowledge for Agent Variable",
         input: ["Kan x", "Kin x", "Kjn x"],
@@ -30,8 +28,10 @@ function SyntaxTable() {
       },
       { name: "Knowledge for Specific Agent", input: "Kn x", pretty: "Kn x" },
       { name: "Everybody Knows", input: "Ex", pretty: "Ex" },
-      { name: "Common Knowledge", input: "C x", pretty: "C x" },
+      { name: "Common Knowledge", input: "Cx", pretty: "Cx" },
       { name: "Public Announcement", input: "[x] y", pretty: "[x] y" },
+      { name: "Tautology", input: "T", pretty: "⊤" },
+      { name: "Contradiction", input: "F", pretty: "⊥" },
     ],
   ];
 
@@ -39,7 +39,7 @@ function SyntaxTable() {
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          <th>Syntax {i === 1 && "(cont.)"}</th>
+          <th>Syntax{i === 1 && " (cont.)"}</th>
           <th className="text-center" colSpan={4 - i}>
             Input
           </th>

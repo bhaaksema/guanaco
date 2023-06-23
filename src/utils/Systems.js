@@ -1,7 +1,11 @@
 import systemK from "../data/SystemK";
+import systemT from "../data/SystemT";
+import systemS4 from "../data/SystemS4";
 import systemS5 from "../data/SystemS5";
 import systemPA from "../data/SystemPA";
 import systemKEC from "../data/SystemKEC";
+import systemTEC from "../data/SystemTEC";
+import systemS4EC from "../data/SystemS4EC";
 import systemS5EC from "../data/SystemS5EC";
 import systemPAC from "../data/SystemPAC";
 import shortcuts from "../data/Shortcuts";
@@ -12,13 +16,16 @@ import shortcutsEC from "../data/ShortcutsEC";
  * @returns {Object} - An object containing all systems
  */
 function systems(m) {
-  const common = ["KEC", "S5EC", "PAC"];
   const res = {
     K: systemK,
+    T: systemT,
+    S4: systemS4,
     S5: systemS5,
-    KEC: systemKEC(m),
-    S5EC: systemS5EC(m),
     PA: systemPA,
+    KEC: systemKEC(m),
+    TEC: systemTEC(m),
+    S4EC: systemS4EC(m),
+    S5EC: systemS5EC(m),
     PAC: systemPAC(m),
   };
 
@@ -27,7 +34,7 @@ function systems(m) {
     res[sys] = res[sys]
       .sort((a, b) => a.name.localeCompare(b.name, "en", { numeric: true }))
       .concat(shortcuts);
-    if (common.includes(sys)) res[sys] = res[sys].concat(shortcutsEC);
+    if (sys.includes("C")) res[sys] = res[sys].concat(shortcutsEC);
   }
 
   return res;
