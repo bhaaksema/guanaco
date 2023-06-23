@@ -9,9 +9,10 @@ import { parse } from "../utils/Parser";
 HoleInput.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
   setRoot: PropTypes.func.isRequired,
+  system: PropTypes.object.isRequired,
 };
 
-function HoleInput({ node, setRoot }) {
+function HoleInput({ node, setRoot, system }) {
   const input = useRef(null);
   /**
    * Handle the user typing in the input field.
@@ -21,7 +22,7 @@ function HoleInput({ node, setRoot }) {
   function handleTyping(target) {
     let result = null;
     try {
-      result = parse(target.value);
+      result = parse(target.value, system);
       // Parsing has succeeded, remove error
       target.setCustomValidity("");
     } catch (e) {

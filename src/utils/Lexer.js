@@ -53,7 +53,8 @@ export function lex(inputText) {
   const lexingResult = FormulaLexer.tokenize(inputText);
 
   // Throw an error if there are any lexing errors
-  if (lexingResult.errors.length > 0) throw Error("Lexing errors detected");
+  if (lexingResult.errors.length > 0)
+    throw Error("This formula contains invalid characters");
 
   // Otherwise return lexing result
   return lexingResult;

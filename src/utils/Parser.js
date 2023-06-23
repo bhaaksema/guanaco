@@ -1,5 +1,6 @@
 import { EmbeddedActionsParser } from "chevrotain";
 import { tokens, lex } from "./Lexer.js";
+import { contains } from "./Formula.js";
 
 /**
  * A parser for Epistemic Logic formulas.
@@ -154,16 +155,30 @@ export const parser = new FormulaParser();
  * @throws {Error} - If there are any parsing errors.
  * @see {@link https://chevrotain.io/docs/tutorial/step2_parsing.html}
  */
-export function parse(inputText) {
+export function parse(inputText, system) {
   // Set parser input to the tokenized inputText
-  parser.input = lex(inputText).tokens;
+  try {
+    parser.input = lex(inputText).tokens;
+  } catch (e) {
+    throw Error(e.message);
+  }
 
   // Invoke the parser
   const ast = parser.formula();
 
   // Throw an error if there are any parsing errors
-  if (parser.errors.length > 0) {
-    throw Error("Parsing errors detected!" + parser.errors[0].message);
+  if (parser.errors.length > 0) throw Error("This formula is not well-formed");
+
+  if (!system.name.includes("C")) {
+    if (contains(ast, "E"))
+      throw Error("Epistemic operator E not allowed in this system!");
+    if (contains(ast, "C"))
+      throw Error("Common knowledge operator C not allowed in this system!");
+  }
+
+  if (!system.name.includes("PA")) {
+    if (contains(ast, "announcement"))
+      throw Error("Announcement operator not allowed in this system!");
   }
 
   // Otherwise, return the AST

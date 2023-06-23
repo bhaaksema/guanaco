@@ -29,7 +29,7 @@ function ProofLine({ node, root, setRoot, system }) {
     <Collapse in={true} appear>
       {/* This div is necessary for smooth animation */}
       <div>
-        <HoleInput {...{ node, setRoot }} />
+        <HoleInput {...{ node, setRoot, system }} />
         <Form validated={node.validated} className="d-flex my-3">
           <InputGroup.Text
             className="flex-grow-1 border-0 border-bottom rounded-0"

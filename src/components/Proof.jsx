@@ -44,7 +44,7 @@ function Proof() {
       </Card.Body>
       <Card.Footer>
         <SystemSelect {...{ root, setRoot, system, setSystem }} />
-        <GoalInput {...{ setRoot }} />
+        <GoalInput {...{ setRoot, system }} />
       </Card.Footer>
     </Card>
   );
