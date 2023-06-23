@@ -1,5 +1,15 @@
 import equal from "fast-deep-equal";
 
+const bin = [
+  "conjunction",
+  "disjunction",
+  "implication",
+  "equivalence",
+  "announcement",
+];
+const un = ["negation", "K", "E", "C"];
+const atom = ["proposition", "variable", "top", "bottom", "hole"];
+
 /**
  * Checks if a formula corresponds to a given reference formula.
  * @param {Object} formula - The formula to check.
@@ -18,64 +28,41 @@ export function checkFormula(formula, ref, agents, holes, propositions) {
 
   if (formula.type !== ref.type) return [false, agents, holes, propositions];
 
-  let result;
-  switch (ref.type) {
-    case "conjunction":
-    case "disjunction":
-    case "implication":
-    case "equivalence":
-    case "announcement":
-      [result, agents, holes, propositions] = checkFormula(
-        formula.left,
-        ref.left,
-        agents,
-        holes,
-        propositions
-      );
-      if (!result) return [false, agents, holes, propositions];
-      return checkFormula(
-        formula.right,
-        ref.right,
-        agents,
-        holes,
-        propositions
-      );
-    case "negation":
-    case "E":
-    case "C":
-      return checkFormula(
-        formula.value,
-        ref.value,
-        agents,
-        holes,
-        propositions
-      );
-    case "K":
+  if (bin.includes(ref.type)) {
+    let result;
+    [result, agents, holes, propositions] = checkFormula(
+      formula.left,
+      ref.left,
+      agents,
+      holes,
+      propositions
+    );
+    if (!result) return [false, agents, holes, propositions];
+    return checkFormula(formula.right, ref.right, agents, holes, propositions);
+  }
+
+  if (un.includes(ref.type)) {
+    if (ref.type === "K") {
       if (agents[ref.agent] === undefined) agents[ref.agent] = formula.agent;
       if (agents[ref.agent] !== formula.agent)
         return [false, agents, holes, propositions];
-      return checkFormula(
-        formula.value,
-        ref.value,
-        agents,
-        holes,
-        propositions
-      );
-    case "proposition":
-      if (propositions[ref.proposition] === undefined)
-        propositions[ref.proposition] = formula;
-      return [
-        equal(propositions[ref.proposition], formula),
-        agents,
-        holes,
-        propositions,
-      ];
-    case "top":
-    case "bottom":
-      return [true, agents, holes, propositions];
-    default:
-      throw new Error("Invalid conclusion: " + ref.type);
+    }
+    return checkFormula(formula.value, ref.value, agents, holes, propositions);
   }
+
+  // Holes and propositions are the only atoms in conclusions
+  if (ref.type === "proposition") {
+    if (propositions[ref.proposition] === undefined)
+      propositions[ref.proposition] = formula;
+    return [
+      equal(propositions[ref.proposition], formula),
+      agents,
+      holes,
+      propositions,
+    ];
+  }
+
+  throw new Error("Invalid conclusion: " + ref.type);
 }
 
 /**
@@ -88,72 +75,50 @@ export function checkFormula(formula, ref, agents, holes, propositions) {
  * @throws {Error} - If the formula type is invalid.
  */
 export function initPremise(premise, agents, holes, propositions) {
-  switch (premise.type) {
-    case "hole":
-      return holes[premise.hole] ? holes[premise.hole] : premise;
-    case "conjunction":
-    case "disjunction":
-    case "implication":
-    case "equivalence":
-    case "announcement":
-      return {
-        type: premise.type,
-        left: initPremise(premise.left, agents, holes),
-        right: initPremise(premise.right, agents, holes),
-      };
-    case "negation":
-    case "E":
-    case "C":
-      return {
-        type: premise.type,
-        value: initPremise(premise.value, agents, holes),
-      };
-    case "K":
+  if (bin.includes(premise.type))
+    return {
+      type: premise.type,
+      left: initPremise(premise.left, agents, holes),
+      right: initPremise(premise.right, agents, holes),
+    };
+
+  if (un.includes(premise.type)) {
+    if (premise.type === "K")
       return {
         type: premise.type,
         agent: agents[premise.agent],
         value: initPremise(premise.value, agents, holes),
       };
-    case "proposition":
-      return propositions[premise.proposition];
-    case "top":
-    case "bottom":
-      return premise;
-    default:
-      throw new Error("Invalid premise: " + premise.type);
+    return {
+      type: premise.type,
+      value: initPremise(premise.value, agents, holes),
+    };
   }
+
+  if (atom.includes(premise.type)) {
+    if (premise.type === "hole")
+      return holes[premise.hole] ? holes[premise.hole] : premise;
+    if (premise.type === "proposition")
+      return propositions[premise.proposition];
+    return premise;
+  }
+
+  throw new Error("Invalid premise: " + premise.type);
 }
 
 /**
- * Checks if a formula is fully initialized.
+ * Checks if a formula contains a given type of subformula.
  * @param {Object} formula - The formula to check.
- * @returns {boolean} - True if the formula is fully initialized, false otherwise.
- * @throws {Error} - If the formula type is invalid.
- * @see {@link initPremise}
+ * @param {string} type - The type of subformula to check for.
+ * @returns {boolean} - True if the formula contains the subformula, false otherwise.
  */
-export function noHoles(formula) {
-  switch (formula.type) {
-    case "hole":
-      return false;
-    case "conjunction":
-    case "disjunction":
-    case "implication":
-    case "equivalence":
-    case "announcement":
-      return noHoles(formula.left) && noHoles(formula.right);
-    case "negation":
-    case "K":
-    case "E":
-    case "C":
-      return noHoles(formula.value);
-    case "proposition":
-    case "variable":
-    case "top":
-    case "bottom":
-      return true;
-    default:
-      throw new Error("Invalid formula: " + formula.type);
-  }
+export function contains(formula, type) {
+  if (formula.type === type) return true;
+  if (bin.includes(formula.type))
+    return contains(formula.left, type) || contains(formula.right, type);
+  if (un.includes(formula.type)) return contains(formula.value, type);
+  if (atom.includes(formula.type)) return false;
+  throw new Error("Invalid formula: " + formula.type);
 }
 
 /**
@@ -164,40 +129,28 @@ export function noHoles(formula) {
  * @throws {Error} - If the formula type is invalid.
  */
 export function fill(formula, hole) {
-  switch (formula.type) {
-    case "hole":
-      return hole;
-    case "conjunction":
-    case "disjunction":
-    case "implication":
-    case "equivalence":
-    case "announcement":
-      return {
-        type: formula.type,
-        left: fill(formula.left, hole),
-        right: fill(formula.right, hole),
-      };
-    case "negation":
-    case "E":
-    case "C":
-      return {
-        type: formula.type,
-        value: fill(formula.value, hole),
-      };
-    case "K":
+  if (bin.includes(formula.type))
+    return {
+      type: formula.type,
+      left: fill(formula.left, hole),
+      right: fill(formula.right, hole),
+    };
+
+  if (un.includes(formula.type)) {
+    if (formula.type === "K")
       return {
         type: formula.type,
         agent: formula.agent,
         value: fill(formula.value, hole),
       };
-    case "proposition":
-    case "variable":
-    case "top":
-    case "bottom":
-      return formula;
-    default:
-      throw new Error("Invalid formula: " + formula.type);
+    return { type: formula.type, value: fill(formula.value, hole) };
   }
+
+  if (atom.includes(formula.type)) {
+    if (formula.type === "hole") return hole;
+    return formula;
+  }
+  throw new Error("Invalid formula: " + formula.type);
 }
 
 /**
@@ -210,34 +163,25 @@ export function fill(formula, hole) {
 export function diff(left, right) {
   if (left.type !== right.type) return { type: "equivalence", left, right };
 
-  let resLeft, resRight;
-  switch (left.type) {
-    case "conjunction":
-    case "disjunction":
-    case "implication":
-    case "equivalence":
-    case "announcement":
-      resLeft = diff(left.left, right.left);
-      resRight = diff(left.right, right.right);
-      if (resLeft && resRight) return { type: left.type, left, right };
-      return resLeft ? resLeft : resRight;
-    case "negation":
-    case "E":
-    case "C":
-      return diff(left.value, right.value);
-    case "K":
-      if (left.agent !== right.agent)
-        return { type: "equivalence", left, right };
-      return diff(left.value, right.value);
-    case "proposition":
-    case "variable":
-      return left.value === right.value
-        ? null
-        : { type: "equivalence", left, right };
-    case "top":
-    case "bottom":
-      return null;
-    default:
-      throw new Error("Invalid formula: " + left.type);
+  if (bin.includes(left.type)) {
+    const resLeft = diff(left.left, right.left);
+    const resRight = diff(left.right, right.right);
+    if (resLeft && resRight) return { type: left.type, left, right };
+    return resLeft ? resLeft : resRight;
   }
+
+  if (un.includes(left.type)) {
+    if (left.type === "K" && left.agent !== right.agent)
+      return { type: "equivalence", left, right };
+    return diff(left.value, right.value);
+  }
+
+  if (atom.includes(left.type)) {
+    if (left.type === "proposition" || left.type === "variable")
+      if (left.value !== right.value)
+        return { type: "equivalence", left, right };
+    return null;
+  }
+
+  throw new Error("Invalid formula: " + left.type);
 }

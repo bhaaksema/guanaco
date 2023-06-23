@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { noHoles } from "./Formula";
+import { contains } from "./Formula";
 
 /**
  * Class representing a proof tree
@@ -23,7 +23,9 @@ export class Tree {
     this.rule = rule;
     this.validated = validated;
     this.children = children;
-    this.inputEnabled = this.children.some((child) => !noHoles(child.formula));
+    this.inputEnabled = this.children.some((child) =>
+      contains(child.formula, "hole")
+    );
   }
 
   /**

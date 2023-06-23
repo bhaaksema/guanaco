@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
 
-import { noHoles } from "../utils/Formula";
+import { contains } from "../utils/Formula";
 import { Tree } from "../utils/Tree";
 
 RuleSelect.propTypes = {
@@ -33,7 +33,8 @@ function RuleSelect({ node, setRoot, system }) {
       // generate children nodes from premises
       const children = premises.map((premise) => new Tree(premise));
       // validate the node if there are no holes or if there is only one premise
-      const validated = premises.length === 1 || premises.every(noHoles);
+      const validated =
+        premises.length === 1 || !premises.some((p) => contains(p, "hole"));
       // update the root
       setRoot((root) => root.update(node, ruleName, validated, children));
     } else {

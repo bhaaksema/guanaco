@@ -1,4 +1,4 @@
-import { noHoles, checkFormula, initPremise, diff } from "./Formula";
+import { checkFormula, contains, initPremise, diff } from "./Formula";
 
 /**
  * Class representing a rule
@@ -36,7 +36,7 @@ class Rule {
    */
   check(formula) {
     // if there are holes in formula, return false
-    if (!noHoles(formula)) return false;
+    if (contains(formula, "hole")) return false;
 
     // check formula against rule conclusion
     const agentArr = Array(this.agents);
