@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, FloatingLabel } from "react-bootstrap";
 
 import { parse } from "../utils/Parser";
@@ -10,6 +10,7 @@ GoalInput.propTypes = {
 };
 
 function GoalInput({ setRoot, system }) {
+  const input = useRef(null);
   const [validated, setValidated] = useState(false);
   const [error, setError] = useState("");
 
@@ -38,6 +39,12 @@ function GoalInput({ setRoot, system }) {
     }
   }
 
+  /** Update the input field when the system changes. */
+  useEffect(() => {
+    handleTyping(input.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [system]);
+
   /**
    * Render the GoalInput component.
    * @returns {JSX.Element}
@@ -45,7 +52,11 @@ function GoalInput({ setRoot, system }) {
   return (
     <Form noValidate validated={validated} className="my-2">
       <FloatingLabel label="Goal">
-        <Form.Control onChange={(e) => handleTyping(e.target)} autoFocus />
+        <Form.Control
+          ref={input}
+          onChange={(e) => handleTyping(e.target)}
+          autoFocus
+        />
         <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
       </FloatingLabel>
     </Form>
