@@ -54,7 +54,7 @@ export function lex(inputText) {
 
   // Throw an error if there are any lexing errors
   if (lexingResult.errors.length > 0)
-    throw Error("This formula contains invalid characters");
+    throw Error("This formula is not well-formed");
 
   // Otherwise return lexing result
   return lexingResult;

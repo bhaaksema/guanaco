@@ -185,3 +185,20 @@ export function diff(left, right) {
 
   throw new Error("Invalid formula: " + left.type);
 }
+
+/**
+ * Finds the set of agents in a formula.
+ * @param {Object} formula - The formula to check.
+ * @returns {Array} - The set of agents in the formula.
+ * @throws {Error} - If the formula type is invalid.
+ */
+export function agents(formula) {
+  if (bin.includes(formula.type))
+    return [...new Set([...agents(formula.left), ...agents(formula.right)])];
+  if (un.includes(formula.type)) {
+    if (formula.type === "K") return [formula.agent];
+    return agents(formula.value);
+  }
+  if (atom.includes(formula.type)) return [];
+  throw new Error("Invalid formula: " + formula.type);
+}

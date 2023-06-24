@@ -1,6 +1,6 @@
 import { EmbeddedActionsParser } from "chevrotain";
 import { tokens, lex } from "./Lexer.js";
-import { contains } from "./Formula.js";
+import { agents, contains } from "./Formula.js";
 
 /**
  * A parser for Epistemic Logic formulas.
@@ -169,16 +169,30 @@ export function parse(inputText, system) {
   // Throw an error if there are any parsing errors
   if (parser.errors.length > 0) throw Error("This formula is not well-formed");
 
+  // Throw an error if the formula is not in the language of the system
   if (!system.name.includes("C")) {
     if (contains(ast, "E"))
-      throw Error("Epistemic operator E not allowed in this system!");
+      throw Error(
+        `The language of ${system.name} does not contain the operator E`
+      );
     if (contains(ast, "C"))
-      throw Error("Common knowledge operator C not allowed in this system!");
+      throw Error(
+        `The language of ${system.name} does not contain the operator C`
+      );
   }
-
   if (!system.name.includes("PA")) {
     if (contains(ast, "announcement"))
-      throw Error("Announcement operator not allowed in this system!");
+      throw Error(
+        `The language of ${system.name} does not contain the announcement operator`
+      );
+  }
+  if (
+    !isNaN(system.agents) &&
+    agents(ast).some((agent) => isNaN(agent) || agent > system.agents)
+  ) {
+    throw Error(
+      `This formula contains an agent that is not in system ${system.name}(${system.agents})`
+    );
   }
 
   // Otherwise, return the AST

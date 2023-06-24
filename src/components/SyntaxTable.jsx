@@ -103,7 +103,8 @@ function SyntaxTable() {
               <Col key={i}>{table(col, i)}</Col>
             ))}
           </Row>
-          (<code>*</code>) denotes that integer <samp>n</samp> is optional.
+          (<code>*</code>) denotes that positive integer <samp>n</samp> is
+          optional.
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
