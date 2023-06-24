@@ -36,7 +36,7 @@ function SyntaxTable() {
   ];
 
   const table = (col, i) => (
-    <Table striped bordered hover size="sm" responsive="sm">
+    <Table striped bordered hover size="sm" responsive="md">
       <thead>
         <tr>
           <th>Syntax{i === 1 && " (cont.)"}</th>
@@ -51,7 +51,7 @@ function SyntaxTable() {
       <tbody>
         {col.map((row, j) => (
           <tr key={j}>
-            <td>{row.name}</td>
+            <td className="text-nowrap">{row.name}</td>
             {Array.isArray(row.input) ? (
               row.input.map((input, k) => (
                 <td key={k} className="text-center text-nowrap">

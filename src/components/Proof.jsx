@@ -9,7 +9,6 @@ import GoalInput from "./GoalInput";
 import SyntaxTable from "./SyntaxTable";
 
 function Proof() {
-  const title = "Syntactic Proof Guide for Epistemic Logic";
   // initialize the proof tree and the system
   const [root, setRoot] = useState(new Tree({ type: "hole" }));
   const [system, setSystem] = useState({
@@ -24,11 +23,6 @@ function Proof() {
    */
   return (
     <Card border="dark" className="mt-3 mb-1">
-      <Card.Header>
-        <Card.Title as="h1" className="text-center">
-          {title}
-        </Card.Title>
-      </Card.Header>
       <Card.Body>
         {root.toArray().map((node) => (
           <ProofLine key={node.id} {...{ node, root, setRoot, system }} />

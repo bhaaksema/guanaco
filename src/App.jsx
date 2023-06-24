@@ -1,10 +1,33 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { BsFileEarmarkTextFill, BsGithub } from "react-icons/bs";
 
 import Proof from "./components/Proof";
 
 export default function App() {
-  const maintainer = "https://github.com/bhaaksema";
-  const documentation = "https://bhaaksema.github.io/guanaco-doc/";
+  const title = "Guanaco";
+  const subtitle = "A Syntactic Proof Guide for Epistemic Logic";
+  const links = [
+    {
+      name: "Documentation",
+      href: "https://bhaaksema.github.io/guanaco-doc/",
+      icon: <BsFileEarmarkTextFill />,
+    },
+    {
+      name: "GitHub",
+      href: "https://github.com/bhaaksema/guanaco",
+      icon: <BsGithub />,
+    },
+  ];
+
+  /**
+   * Handle the user clicking a link.
+   * @param {Event} event - The click event.
+   */
+  function handleClick(event) {
+    event.preventDefault();
+    window.open(event.target.href, "_blank");
+    event.target.removeClass("active");
+  }
 
   /**
    * Render the App component.
@@ -12,21 +35,19 @@ export default function App() {
    */
   return (
     <>
-      <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="sm">
+      <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="md">
         <Container>
-          <Navbar.Brand>Guanaco</Navbar.Brand>
+          <Navbar.Brand>{title}</Navbar.Brand>
+          <Navbar.Text className="text-muted">{subtitle}</Navbar.Text>
           <Navbar.Toggle />
           <Navbar.Collapse>
-            <Nav className="me-auto">
-              <Nav.Link href={documentation} target="_blank">
-                Documentation
-              </Nav.Link>
-            </Nav>
+            <Nav className="me-auto"></Nav>
             <Nav className="justify-content-end">
-              <Navbar.Text>Maintained by:</Navbar.Text>
-              <Nav.Link href={maintainer} target="_blank">
-                <u>bhaaksema</u>
-              </Nav.Link>
+              {links.map((link, index) => (
+                <Nav.Link key={index} href={link.href} onClick={handleClick}>
+                  {link.icon}&nbsp;{link.name}
+                </Nav.Link>
+              ))}
             </Nav>
           </Navbar.Collapse>
         </Container>
