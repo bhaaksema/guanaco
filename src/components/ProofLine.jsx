@@ -37,10 +37,13 @@ function ProofLine({ node, root, setRoot, system }) {
           >
             {nodeIndex(root, node)}&emsp;⊢&ensp;{pretty(node.formula)}
           </InputGroup.Text>
-          <InputGroup style={{ width: "11em" }}>
+          <InputGroup style={{ width: "auto", minWidth: "168px" }}>
             <RuleSelect {...{ node, setRoot, system }} />
             {node.children.length > 0 && (
-              <InputGroup.Text style={{ width: "4em" }}>
+              <InputGroup.Text
+                className="justify-content-center"
+                style={{ minWidth: "54px" }}
+              >
                 {node.children.map((c) => nodeIndex(root, c)).join(", ")}
               </InputGroup.Text>
             )}

@@ -36,7 +36,7 @@ function SyntaxTable() {
   ];
 
   const table = (col, i) => (
-    <Table striped bordered hover size="sm">
+    <Table striped bordered hover size="sm" responsive="sm">
       <thead>
         <tr>
           <th>Syntax{i === 1 && " (cont.)"}</th>
