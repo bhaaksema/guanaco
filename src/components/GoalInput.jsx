@@ -54,6 +54,7 @@ function GoalInput({ setRoot, system }) {
       <FloatingLabel label="Goal">
         <Form.Control
           ref={input}
+          placeholder="Goal"
           onChange={(e) => handleTyping(e.target)}
           autoFocus
         />
