@@ -42,7 +42,7 @@ function ProofLine({ node, root, setRoot, system }) {
             {node.children.length > 0 && (
               <InputGroup.Text
                 className="justify-content-center"
-                style={{ minWidth: "54px" }}
+                style={{ width: "54px" }}
               >
                 {node.children.map((c) => nodeIndex(root, c)).join(", ")}
               </InputGroup.Text>

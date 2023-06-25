@@ -5,7 +5,7 @@ import Proof from "./components/Proof";
 
 export default function App() {
   const title = "Guanaco";
-  const subtitle = "A Syntactic Proof Guide for Epistemic Logic";
+  const description = "A Syntactic Proof Guide for Epistemic Logic";
   const links = [
     {
       name: "Documentation",
@@ -38,9 +38,9 @@ export default function App() {
       <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect expand="md">
         <Container>
           <Navbar.Brand>{title}</Navbar.Brand>
-          <Navbar.Text className="text-muted">{subtitle}</Navbar.Text>
           <Navbar.Toggle />
           <Navbar.Collapse>
+            <Navbar.Text className="text-muted">{description}</Navbar.Text>
             <Nav className="me-auto"></Nav>
             <Nav className="justify-content-end">
               {links.map((link, index) => (
