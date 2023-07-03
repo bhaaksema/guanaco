@@ -203,3 +203,24 @@ export function agents(formula) {
   if (atom.includes(formula.type)) return [];
   throw new Error("Invalid formula: " + formula.type);
 }
+
+/**
+ * Finds the set of item with unknown truth values in a formula.
+ * @param {Object} formula - The formula to check.
+ * @returns {Array} - The set of items with unknown truth values in the formula.
+ * @throws {Error} - If the formula type is invalid.
+ */
+export function getItems(formula) {
+  if (bin.includes(formula.type)) {
+    const left = getItems(formula.left);
+    const right = getItems(formula.right);
+    for (const r of right) if (!left.some((l) => equal(l, r))) left.push(r);
+    return left;
+  }
+
+  if (formula.type === "negation") return getItems(formula.value);
+  if (un.includes(formula.type)) return [formula];
+  if (formula.type === "top" || formula.type === "bottom") return [];
+  if (atom.includes(formula.type)) return [formula];
+  throw new Error("Invalid formula: " + formula.type);
+}

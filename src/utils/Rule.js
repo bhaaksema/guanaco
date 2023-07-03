@@ -1,4 +1,5 @@
 import { checkFormula, contains, initPremise, diff } from "./Formula";
+import tautology from "./Eval";
 
 /**
  * Class representing a rule
@@ -38,11 +39,17 @@ class Rule {
     // if there are holes in formula, return false
     if (contains(formula, "hole")) return false;
 
+    // A1 is a special case
+    if (this.name === "A1")
+      // TODO: return the result of the tautology check
+      tautology(formula);
+
     // check formula against rule conclusion
     const agentArr = Array(this.agents);
     let [result, agents, holes, propositions] = checkFormula(
       formula,
       this.conclusion,
+      // if rule is A6, agents are 1 to n
       this.name === "A6" ? [...agentArr.keys()].map((i) => ++i) : agentArr,
       new Array(this.holes),
       new Array(this.propositions)
