@@ -166,6 +166,7 @@ export function diff(left, right) {
   if (bin.includes(left.type)) {
     const resLeft = diff(left.left, right.left);
     const resRight = diff(left.right, right.right);
+    if (equal(resLeft, resRight)) return resLeft;
     if (resLeft && resRight) return { type: left.type, left, right };
     return resLeft ? resLeft : resRight;
   }
