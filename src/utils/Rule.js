@@ -40,9 +40,7 @@ class Rule {
     if (contains(formula, "hole")) return false;
 
     // A1 is a special case
-    if (this.name === "A1")
-      // TODO: return the result of the tautology check
-      tautology(formula);
+    if (this.name === "A1") return tautology(formula);
 
     // check formula against rule conclusion
     const agentArr = Array(this.agents);

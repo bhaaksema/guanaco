@@ -4,8 +4,6 @@ const systemK = [
   // A1: Propositional tautologies
   new Rule("A1", 0, 0, {
     // Custom conclusion, see src/utils/Rule.js
-    type: "hole",
-    hole: 0,
   }),
   // A2: Modus ponens for knowledge
   // (Ka f1 & Ka (f1 -> f2)) -> Ka f2

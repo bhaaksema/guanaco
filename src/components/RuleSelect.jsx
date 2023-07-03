@@ -3,7 +3,6 @@ import { Form } from "react-bootstrap";
 
 import { contains } from "../utils/Formula";
 import { Tree } from "../utils/Tree";
-import tautology from "../utils/Eval";
 
 RuleSelect.propTypes = {
   node: PropTypes.instanceOf(Tree).isRequired,
@@ -40,14 +39,7 @@ function RuleSelect({ node, setRoot, system }) {
       setRoot((root) => root.update(node, ruleName, validated, children));
     } else {
       // rule is an axiom, enable validation possibly for A1
-      setRoot((root) =>
-        root.update(
-          node,
-          ruleName,
-          ruleName !== "A1" || tautology(node.formula),
-          []
-        )
-      );
+      setRoot((root) => root.update(node, ruleName, true, []));
     }
   }
 
