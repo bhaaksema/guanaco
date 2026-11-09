@@ -1,15 +1,3 @@
----
-title: Guanaco
-description: A Syntactic Proof Guide for Epistemic Logic
----
-
-<script>
-  MathJax = { tex: { inlineMath: [['$', '$']] } };
-</script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
-
 # Introduction
 
 In this project, we present a program that helps users write syntactic proofs. We name it _Guanaco_. If you have completed or taught one of the courses _Introduction to Logic_, _Reasoning and Arguing_ or _Logica en Argumentatieleer_ at University of Groningen, then you probably recall the program Fitch. Guanaco is much like Fitch, except that it concerns syntactic proofs instead of natural deduction. Just like in Fitch, users of Guanaco enter formulas on lines and provide a justification for those formulas. The justifications are the rules and axioms of the logics $\mathbf{K\_{(m)}}$, $\mathbf{T\_{(m)}}$, $\mathbf{S4\_{(m)}}$, $\mathbf{S5\_{(m)}}$, $\mathbf{PA\_{(m)}}$, $\mathbf{KEC\_{(m)}}$, $\mathbf{TEC\_{(m)}}$, $\mathbf{S4EC\_{(m)}}$, $\mathbf{S5EC\_{(m)}}$ or $\mathbf{PAC\_{(m)}}$ in which the users aims to derive a chosen formula. Guanaco then evaluates whether the justification is applied correctly. This helps users successfully complete syntactic proofs.
