@@ -250,3 +250,7 @@ Except for the limitation that Guanaco only supports the bottom-up strategy, eac
 Meyer, J. C., & Van Der Hoek, W. (1995). _Epistemic Logic for AI and Computer Science._ Cambridge University Press.
 
 Van Ditmarsch, H., Van Der Hoek, W., & Kooi, B. (2007). _Dynamic Epistemic Logic._ Springer.
+
+---
+
+Created by [mborchers](https://github.com/Maulol13), [bhaaksema](https://github.com/bhaaksema) and [lsibma](https://github.com/lisannesibma).
