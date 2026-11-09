@@ -54,14 +54,14 @@ function HoleInput({ node, setRoot, system }) {
     const hole = handleTyping(input.current);
 
     // If the input is valid, fill the holes in the tree
-    if (hole) {
-      node.children = node.children.map((child) =>
-        child.setFormula(fill(child.formula, hole))
-      );
-    }
+    const children = hole
+      ? node.children.map((child) =>
+          child.setFormula(fill(child.formula, hole))
+        )
+      : node.children;
 
     // Update the tree and prevent the page from reloading
-    setRoot((root) => root.update(node, node.rule, true, node.children));
+    setRoot((root) => root.update(node, node.rule, true, children));
     event.preventDefault();
   }
 
