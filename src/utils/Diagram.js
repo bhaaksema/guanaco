@@ -11,14 +11,14 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
-import chevrotain from "chevrotain";
+import { createSyntaxDiagramsCode } from "chevrotain";
 import { parser } from "./Parser.js";
 
 // extract the serialized grammar.
 const serializedGrammar = parser.getSerializedGastProductions();
 
 // create the HTML Text
-const htmlText = chevrotain.createSyntaxDiagramsCode(serializedGrammar);
+const htmlText = createSyntaxDiagramsCode(serializedGrammar);
 
 // Write the HTML file to disk
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
