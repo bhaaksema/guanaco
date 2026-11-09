@@ -33,8 +33,8 @@ export default function App() {
    */
   function handleClick(event) {
     event.preventDefault();
-    window.open(event.target.href, "_blank");
-    event.target.removeClass("active");
+    window.open(event.currentTarget.href, "_blank");
+    event.currentTarget.classList.remove("active");
   }
 
   /**
