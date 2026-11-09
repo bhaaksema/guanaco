@@ -1,21 +1,29 @@
+import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { BsFileEarmarkTextFill, BsGithub } from "react-icons/bs";
 
+import Documentation from "./components/Documentation";
 import Proof from "./components/Proof";
 
 export default function App() {
   const title = "Guanaco";
   const description = "A Syntactic Proof Guide for Epistemic Logic";
+  const [showDocumentation, setShowDocumentation] = useState(false);
   const links = [
     {
       name: "Documentation",
-      href: "https://bhaaksema.github.io/guanaco-doc/",
+      href: "#documentation",
       icon: <BsFileEarmarkTextFill />,
+      onClick: (event) => {
+        event.preventDefault();
+        setShowDocumentation(true);
+      },
     },
     {
       name: "GitHub",
       href: "https://github.com/bhaaksema/guanaco",
       icon: <BsGithub />,
+      onClick: handleClick,
     },
   ];
 
@@ -44,7 +52,7 @@ export default function App() {
             <Nav className="me-auto"></Nav>
             <Nav className="justify-content-end">
               {links.map((link, index) => (
-                <Nav.Link key={index} href={link.href} onClick={handleClick}>
+                <Nav.Link key={index} href={link.href} onClick={link.onClick}>
                   {link.icon}&nbsp;{link.name}
                 </Nav.Link>
               ))}
@@ -55,6 +63,10 @@ export default function App() {
       <Container>
         <Proof />
       </Container>
+      <Documentation
+        show={showDocumentation}
+        onHide={() => setShowDocumentation(false)}
+      />
     </>
   );
 }
