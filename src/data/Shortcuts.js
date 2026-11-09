@@ -186,7 +186,7 @@ const shortcuts = [
       },
     ]
   ),
-  // No Contradiction 1
+  // No contradiction 1
   new Rule(
     "NC",
     0,

@@ -104,7 +104,7 @@ const systemPA = [
       },
     },
   }),
-  // A15: Announcement and composition
+  // A15: Announcement composition
   // [f1] [f2] f3 <-> [f1 & [f1] f2] f3
   new Rule("A15", 0, 3, {
     type: "equivalence",

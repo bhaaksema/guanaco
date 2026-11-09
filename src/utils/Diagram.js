@@ -5,7 +5,7 @@
  * See: https://github.com/chevrotain/chevrotain/tree/master/diagrams for more details
  *
  * usage:
- * - npm install in the parent directory (parser) to install dependencies
+ * - npm install in the project root to install dependencies
  * - Run this file in node.js (node Diagram.js)
  */
 import path from "path";

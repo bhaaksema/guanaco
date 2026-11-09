@@ -78,7 +78,7 @@ const systemKEC = (m) => {
         right: { type: "C", value: { type: "hole", hole: 1 } },
       },
     }),
-    // A10: Induction for common knowledge
+    // A10: Induction of common knowledge
     new Rule("A10", 0, 1, {
       type: "implication",
       left: {
