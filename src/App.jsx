@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { BsFileEarmarkTextFill, BsGithub } from "react-icons/bs";
 
-import Documentation from "./components/Documentation";
 import Proof from "./components/Proof";
+
+const Documentation = lazy(() => import("./components/Documentation"));
 
 export default function App() {
   const title = "Guanaco";
@@ -63,10 +64,12 @@ export default function App() {
       <Container>
         <Proof />
       </Container>
-      <Documentation
-        show={showDocumentation}
-        onHide={() => setShowDocumentation(false)}
-      />
+      <Suspense>
+        <Documentation
+          show={showDocumentation}
+          onHide={() => setShowDocumentation(false)}
+        />
+      </Suspense>
     </>
   );
 }
