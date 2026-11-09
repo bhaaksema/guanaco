@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import { Offcanvas } from "react-bootstrap";
+import { Offcanvas, Table } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
+import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
@@ -8,8 +9,6 @@ import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 
 import content from "../../docs/index.md?raw";
-import DocumentationLink from "./DocumentationLink";
-import DocumentationTable from "./DocumentationTable";
 
 Documentation.propTypes = {
   show: PropTypes.bool.isRequired,
@@ -39,8 +38,18 @@ function Documentation({ show, onHide }) {
       <Offcanvas.Body>
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
-          rehypePlugins={[rehypeSlug, rehypeKatex]}
-          components={{ a: DocumentationLink, table: DocumentationTable }}
+          rehypePlugins={[
+            rehypeSlug,
+            rehypeKatex,
+            [rehypeExternalLinks, { target: "_blank", rel: ["noreferrer"] }],
+          ]}
+          components={{
+            table: ({ children }) => (
+              <Table size="sm" bordered responsive>
+                {children}
+              </Table>
+            ),
+          }}
         >
           {content}
         </ReactMarkdown>
