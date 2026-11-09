@@ -290,8 +290,8 @@ const shortcuts = [
     1,
     {
       type: "implication",
-      left: { type: "hole", hole: 0 },
-      right: { type: "negation", value: { type: "hole", hole: 1 } },
+      left: { type: "hole", hole: 1 },
+      right: { type: "negation", value: { type: "hole", hole: 0 } },
     },
     [
       {
