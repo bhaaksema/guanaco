@@ -105,30 +105,30 @@ const systemPA = [
     },
   }),
   // A15: Announcement and composition
-  // [f1] (f2 & f3) <-> ([f1] f2 & [f1] f3)
+  // [f1] [f2] f3 <-> [f1 & [f1] f2] f3
   new Rule("A15", 0, 3, {
     type: "equivalence",
     left: {
       type: "announcement",
       left: { type: "hole", hole: 0 },
       right: {
-        type: "conjunction",
+        type: "announcement",
         left: { type: "hole", hole: 1 },
         right: { type: "hole", hole: 2 },
       },
     },
     right: {
-      type: "conjunction",
+      type: "announcement",
       left: {
-        type: "announcement",
+        type: "conjunction",
         left: { type: "hole", hole: 0 },
-        right: { type: "hole", hole: 1 },
+        right: {
+          type: "announcement",
+          left: { type: "hole", hole: 0 },
+          right: { type: "hole", hole: 1 },
+        },
       },
-      right: {
-        type: "announcement",
-        left: { type: "hole", hole: 0 },
-        right: { type: "hole", hole: 2 },
-      },
+      right: { type: "hole", hole: 2 },
     },
   }),
 ];
