@@ -145,7 +145,7 @@ class FormulaParser extends EmbeddedActionsParser {
   }
 }
 
-/** Constant reuseable parser instance */
+/** Constant reusable parser instance */
 export const parser = new FormulaParser();
 
 /**

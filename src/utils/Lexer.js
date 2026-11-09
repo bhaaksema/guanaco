@@ -31,7 +31,7 @@ let tokensByPriority = [
   createToken({ name: "Agent", pattern: /[1-9]\d*|(a|i|j)(0|[1-9]\d*)?/ }),
 ];
 
-/** Constant reuseable lexer instance */
+/** Constant reusable lexer instance */
 const FormulaLexer = new Lexer(tokensByPriority, {
   ensureOptimizations: true,
 });

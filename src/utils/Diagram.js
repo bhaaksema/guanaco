@@ -6,7 +6,7 @@
  *
  * usage:
  * - npm install in the parent directory (parser) to install dependencies
- * - Run this in file in node.js (node gen_diagrams.js)
+ * - Run this file in node.js (node Diagram.js)
  */
 import path from "path";
 import { fileURLToPath } from "url";

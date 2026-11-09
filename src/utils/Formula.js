@@ -205,7 +205,7 @@ export function agents(formula) {
 }
 
 /**
- * Finds the set of item with unknown truth values in a formula.
+ * Finds the set of items with unknown truth values in a formula.
  * @param {Object} formula - The formula to check.
  * @returns {Array} - The set of items with unknown truth values in the formula.
  * @throws {Error} - If the formula type is invalid.
