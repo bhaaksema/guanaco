@@ -97,7 +97,7 @@ const systemKEC = (m) => {
         left: { type: "hole", hole: 0 },
         right: {
           type: "C",
-          value: { type: "hole", hole: 1 },
+          value: { type: "hole", hole: 0 },
         },
       },
     }),
